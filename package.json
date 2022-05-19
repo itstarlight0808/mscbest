@@ -1,0 +1,50 @@
+{
+  "name": "musical-best",
+  "version": "1.0.0",
+  "description": "Musical Best App",
+  "main": "index.js",
+  "dependencies": {
+    "aws-sdk": "^2.702.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "eslint": "^6.6.0",
+    "eslint-plugin-react": "^7.19.0",
+    "express": "^4.17.1",
+    "helmet": "^5.0.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.8.11",
+    "multer": "^1.4.2",
+    "multer-s3": "^2.9.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.4",
+    "@babel/node": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react-hooks": "^2.5.1",
+    "nodemon": "^2.0.2"
+  },
+  "scripts": {
+    "start": "nodemon --watch backend --exec node backend/server.js",
+    "build": "rm -rf dist && babel backend -d dist  && cd frontend && npm install && npm run build",
+    "heroku-postbuild-x": "npm run build && cd frontend && npm install && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/itstarlight0808/musical-best.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/itstarlight0808/musical-best/issues"
+  },
+  "homepage": "https://github.com/itstarlight0808/musical-best#readme",
+  "engines": {
+    "node": "12.4.0",
+    "npm": "6.9.0"
+  }
+}
