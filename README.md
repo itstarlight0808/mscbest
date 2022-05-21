@@ -1,8 +1,8 @@
-# React & Node Tutorial - Full ECommerce in 5 Hours [2020]
+# Musical Best App [2022]
 
 Welcome to my React and Node tutorial to build a fully-functional musical best website. Open your code editor and follow me for the next hours to build an musical best website using React and Node.JS.
 
-## You Will Learn
+## Used Stack
 
 - HTML5 and CSS3: Semantic Elements, CSS Grid, Flexbox
 - React: Components, Props, Events, Hooks, Router, Axios

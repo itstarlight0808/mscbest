@@ -27,7 +27,7 @@ function Home(props) {
         <button className="btn btn-primary ms-3" onClick={followEventClicked}>Get on Queue</button>
         <button className="btn btn-danger ms-3" onClick={unfollowEventClicked}>Remove from Queue</button>
       </div>}
-      <div className="event-wrapper mt-5 d-flex justify-content-center flex-sm-column">
+      <div className="event-wrapper d-flex justify-content-center flex-sm-column">
           <div className="event-container">
           {
               userEvent.event && userEvent.event.map((one, index) => {
