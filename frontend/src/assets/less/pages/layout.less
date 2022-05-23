@@ -1,3 +1,19 @@
 main.main {
     min-height: 90vh;
+
+    .container {
+        width: auto;
+        @media (min-width: @screen-sm) {
+            width: 760px;
+        }
+        @media (min-width: @screen-md) {
+            width: 990px;
+        }
+        @media (min-width: @screen-lg) {
+            width: 1200px;
+        }
+        @media (min-width: @screen-xl) {
+           width: 1400px; 
+        }
+    }
 }
