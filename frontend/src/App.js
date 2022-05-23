@@ -17,12 +17,12 @@ function App() {
 
   const userRoute = (
     <>
-      <Route path="/" exact={true} component={Home} />
+      
     </>
   );
   const adminRoute = (
     <>
-      <Route path="/" exact={true} component={DashboardAdmin} />
+      <Route path="/dashboard" exact={true} component={DashboardAdmin} />
     </>
   );
 
@@ -31,6 +31,7 @@ function App() {
       <Layout>
         <Route path="/signin" component={Signin} />
         <Route path="/register" component={Register} />
+        <Route path="/" exact={true} component={Home} />
 
         {userInfo?.isAdmin? adminRoute: userRoute}
       </Layout>
