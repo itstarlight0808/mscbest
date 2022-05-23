@@ -11,8 +11,9 @@ module.exports = {
       path: path.resolve(__dirname, "dist"), // string
       // the target directory for all output files
       // must be an absolute path (use the Node.js path module)
-      filename: "bundle.js", // string
-      // the filename template for entry chunks
+      filename: "bundle.js", // string,
+      // the filename template for entry chunks,
+      assetModuleFilename: "images/[hash][ext][query]"
     },
     module: {
         rules: [
@@ -27,6 +28,10 @@ module.exports = {
                     { loader: "css-loader" },
                     { loader: "less-loader" }
                 ]
+            },
+            {
+                test: /\.(jpe?g|png|gif|svg)$/,
+                type: "asset/resource"
             }
         ]
     },
@@ -39,7 +44,7 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             template: './public/index.html',
-            favicon: './public/favicon.ico'
+            favicon: './public/favicon.ico',
         }),
         new InterpolateHtmlPlugin({
             PUBLIC_URL: 'public'
