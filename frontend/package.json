@@ -44,6 +44,7 @@
   "devDependencies": {
     "@babel/preset-react": "^7.17.12",
     "css-loader": "^6.7.1",
+    "file-loader": "^6.2.0",
     "interpolate-html-plugin": "^4.0.0",
     "less": "^4.1.2",
     "less-loader": "^11.0.0",
