@@ -1,10 +1,284 @@
 .home {
     .introduction-section {
-        img {
+        display: flex;
+        justify-content: flex-end;
+        height: 45vw;
+
+        > img {
             position: absolute;
             top: 0px;
             left: 0px;
             width: 100%;
+            z-index: -1;
+        }
+        .introduction-content {
+            max-width: 700px;
+            margin: 20px 60px 0px 0px;
+
+            .title {
+                .main-title {
+                    font-family: 'Montserrat';
+                    font-weight: 400;
+                    font-size: 32px;
+                    color: @pink-color;
+
+                    i {
+                        margin-right: 15px;
+                        font-family: 'Zapfino';
+                        font-weight: 400;
+                        font-size: 48px;
+                        color: @white-color;
+                    }
+                }
+                .sub-title {
+                    font-family: 'Montserrat';
+                    font-weight: 400;
+                    font-size: 30px;
+                    color: @white-color;
+
+                    i {
+                        font-size: 30px;
+                        color: @pink-color;
+                    }
+                }
+            }
+            .description {
+                margin-top: 70px;
+                font-size: 19px;
+                color: @white-color;
+            }
+            .ctrl-container {
+                margin-top: 105px;
+                display: flex;
+                justify-content: center;
+
+                .btn-play {
+                    margin-left: 30px;
+                    font-family: 'Montserrat';
+                    font-weight: 800;
+                    font-size: 16px;
+                    color: @white-color;
+
+                    img {
+                        margin-right: 10px;
+                    }
+                }
+            }
+        }
+    }
+
+    .about-section {
+        display: flex;
+        .about-img-container {
+
+        }
+        .about-section-content {
+            margin-top: 220px;
+            max-width: 570px;
+
+            .title {
+                font-family: 'Montserrat';
+                font-weight: 700;
+                font-size: 28px;
+
+                .sub-title {
+                    color: @pink-color;
+                    font-size: 28px;
+                    font-weight: 700;
+
+                    i {
+                        margin-right: 15px;
+                        font-family: 'Zapfino';
+                        font-weight: 400;
+                        font-size: 48px;
+                    }
+                }
+            }
+            .description {
+                margin-top: 12px;
+                font-family: 'Raleway';
+                font-weight: 400;
+                font-size: 16px;
+            }
+            .ctrl-container {
+                margin-top: 111px;
+            }
+        }
+    }
+    
+    .event-section {
+        display: flex;
+        justify-content: flex-end;
+        background: #5F269E;
+
+
+        .event-section-content {
+            max-width: 470px;
+            margin-top: 230px;
+
+            .title {
+                font-family: 'Montserrat';
+                font-weight: 700;
+                font-size: 34px;
+                color: @white-color;
+
+                i {
+                    font-size: 34px;
+                    font-weight: 700;
+                    opacity: .7;
+                }
+            }
+            .description {
+                margin-top: 32px;
+                color: @white-color;
+                opacity: .7;
+            }
+            .ctrl-container {
+                margin-top: 152px;
+            }
+        }
+        .event-img-container {
+            margin-top: 40px;
+        }
+    }
+
+    .students-saying-section {
+        .title {
+            margin-top: 140px;
+            text-align: center;
+
+            > span {
+                font-family: 'Montserrat';
+                font-weight: 700;
+                font-size: 34px;
+                
+                i {
+                    font-size: 34px;
+                    color: @pink-color;
+                }
+            }
+        }
+        .carousel-container {
+            margin: 58px 0 60px;
+            overflow-x: hidden;
+
+            .carousel:focus-visible {
+                outline: none;
+            }
+            ._item {
+                margin: 0 30px;
+                max-width: 770px;
+                
+                .description {
+                    background: #f8f8f8;
+                    padding: 20px 30px;
+
+                    .description-text {
+                        padding: 0px 30px;
+                        text-align: center;
+                        color: #222222;
+                        opacity: 0.7;
+                    }
+                }
+                .student-avatar {
+                    text-align: center;
+                    margin-top: -32px;
+
+                    > img {
+                        width: 120px;
+                        height: 120px;
+                    }
+                    .student-name {
+                        margin-top: 20px;
+                        font-family: 'Montserrat';
+                        font-weight: 800;
+                        font-size: 20px;
+                        color: #222222;
+                    }
+                    .student-description {
+                        margin-top: 5px;
+
+                        span {
+                            font-weight: 700;
+
+                            i {
+                                font-weight: 400;
+                                font-style: italic;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .question-section {
+        background: #ebe8fb;
+
+        .title {
+            padding-top: 85px;
+            text-align: center;
+
+            span {
+                font-family: 'Montserrat';
+                font-weight: 700;
+                font-size: 34px;
+
+                i {
+                    font-size: 34px;
+                    font-weight: 700;
+                    color: @pink-color;
+                }
+            }
+        }
+        .question-container {
+            display: flex;
+            justify-content: center;
+            padding: 105px 0 155px;
+
+            .accordion {
+                width: 768px;
+                padding: 48px 24px;
+                background: #f3f5f6;
+
+                .accordion-item {
+                    border-radius: 8px;
+                    
+                    & + .accordion-item {
+                        margin-top: 14px;
+                    }
+                    .accordion-header {
+                        > .accordion-button {
+                            font-family: 'Inter';
+                            font-weight: 700;
+                            font-size: 18px;
+                            box-shadow: none;
+
+                            &:focus, &:active {
+                                box-shadow: none;
+                            }
+                            &:not(.collapsed) {
+                                color: #000;
+                                background: transparent;
+    
+                                &::after {
+                                    color: #000;
+                                    filter: grayscale(1);
+                                }
+                            }
+                        }
+                    }
+                    .accordion-collapse {
+                        
+                        .accordion-body {
+                            font-family: 'Inter';
+                            font-weight: 400;
+                            font-size: 18px;
+                            color: rgba(60, 60, 67, 0.85);
+                        }
+                    }
+                }
+            }
         }
     }
 }

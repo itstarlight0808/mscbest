@@ -1,0 +1,112 @@
+@font-face {
+    font-family: "Montserrat";
+    src: url("../fonts/Montserrat-Regular.ttf");
+}
+@font-face {
+    font-family: "Raleway";
+    src: url("../fonts/Raleway-Regular.ttf");
+}
+@font-face {
+    font-family: "Zapfino";
+    src: url("../fonts/ZapfinoExtraLT-One.otf");
+}
+
+* {
+    font-family: "Raleway";
+    font-style: normal;
+    font-size: 16px;
+}
+// Nice scrollbars in Webkit.
+::-webkit-scrollbar {
+	width: 8px;
+}
+
+::-webkit-scrollbar:horizontal {
+	height: 7px;
+}
+
+::-webkit-scrollbar-button {
+	display: none;
+}
+
+::-webkit-scrollbar-track {
+	background-color: #e5e5e5;
+}
+
+::-webkit-scrollbar-track-piece {
+	background: 0 0;
+}
+
+::-webkit-scrollbar-thumb {
+	background: rgba(51, 51, 51, .3);
+	border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: rgba(51, 51, 51, .6);
+}
+
+::-webkit-scrollbar-corner {
+	display: none;
+}
+
+/*****Button*******/
+.btn-orange {
+    padding: 14px 26px;
+    font-family: 'Montserrat';
+    font-weight: 700;
+    font-size: 13px;
+    color: @white-color;
+    background: #FC5252;
+    border-radius: 6px;
+
+    img, i {
+        margin-left: 10px;
+    }
+
+    &:hover {
+        background: #e74242;
+        color: @white-color;
+        border: 1px solid @white-color;
+    }
+}
+
+.btn-pink {
+    padding: 20px 34px;
+    font-family: 'Montserrat';
+    font-weight: 700;
+    font-size: 16px;
+    color: @white-color;
+    background: #4A1289;
+    border-radius: 6px;
+
+    img, i {
+        margin-left: 10px;
+    }
+
+    &:hover {
+        background: #3a0b6e;
+        color: @white-color;
+        border: 1px solid @white-color;
+    }
+}
+
+.btn-white {
+    padding: 20px 34px;
+    font-family: 'Montserrat';
+    font-weight: 700;
+    font-size: 16px;
+    color: #4A1289;
+    background: #fff;
+    border-radius: 6px;
+
+    img, i {
+        margin-left: 10px;
+    }
+
+    &:hover {
+        background: rgb(214, 214, 214);
+        color: #4A1289;
+        border: 1px solid @white-color;
+    }
+}

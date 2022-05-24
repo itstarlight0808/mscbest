@@ -1,3 +1,51 @@
+.header {
+    .navbar {
+        > .container-fluid {
+            align-items: flex-start;
+
+            .navbar-collapse {
+                margin-top: 28px;
+
+                .navbar-nav {
+                    align-items: center;
+
+                    .nav-item {
+                        width: 100px;
+                        height: 40px;
+
+                        .nav-link {
+                            text-align: center;
+                            padding: 0 5px;
+                            color: @white-color;
+                            font-family: 'Montserrat';
+                            font-weight: 600;
+                            font-size: 11px;
+                            text-transform: uppercase;
+                            transition: .3s;
+
+                            &:hover {
+                                font-size: 14px;
+                            }
+                            &.get-started {
+                                margin-top: -9px;
+                                padding: 7px 4px;
+                                border-radius: 6px;
+                                background: @white-color;
+                                color: @pink-color;
+                                font-family: 'Montserrat';
+                                font-weight: 700;
+                                font-size: 13px;
+                            }
+                            &.dropdown-toggle.show {
+                                font-size: 14px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 main.main {
     min-height: 90vh;
 
@@ -14,6 +62,51 @@ main.main {
         }
         @media (min-width: @screen-xl) {
            width: 1400px; 
+        }
+    }
+}
+
+.footer {
+    background: @pink-color;
+
+    .logo-container {
+        padding-top: 16px;
+        text-align: center;
+
+        > img {
+            width: 245px;
+        }
+    }
+    .footer-menu {
+        display: flex;
+        justify-content: center;
+        padding: 48px 0;
+        color: @white-color;
+
+        > ul {
+            display: flex;
+
+            .menu-item {
+                list-style: none;
+                margin-left: 30px;
+
+                .menu-link {
+                    color: @white-color;
+                    text-decoration: none;
+                    font-family: 'Montserrat';
+                    font-weight: 600;
+                    font-size: 14px;
+                }
+            }
+        }
+        .social-links {
+            margin-left: 66px;
+
+            i {
+                & + i {
+                    margin-left: 40px;
+                }
+            }
         }
     }
 }
