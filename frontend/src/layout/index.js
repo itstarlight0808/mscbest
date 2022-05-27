@@ -17,7 +17,7 @@ const Layout = (props) => {
     return (
         <div className="grid-container">
             <header className="header">
-                <nav className="navbar navbar-expand-lg navbar-light bg-light w-100">
+                <nav className="navbar navbar-expand-lg navbar-light w-100">
                     <div className="container-fluid">
                         <Link to="/" className="navbar-brand">
                             <img src={LogoImage} alt="Logo Image"/>
@@ -35,7 +35,7 @@ const Layout = (props) => {
                                         ABOUT US
                                     </a>
                                     <ul className="dropdown-menu" aria-labelledby="aboutusDropdownMenu">
-                                        <li><Link to="/" className="dropdown-item">Action</Link></li>
+                                        <li><Link to="/about" className="dropdown-item">About Us</Link></li>
                                         <li><Link to="/" className="dropdown-item">Another action</Link></li>
                                         <li><Link to="/" className="dropdown-item">Something else here</Link></li>
                                     </ul>

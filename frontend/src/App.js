@@ -6,6 +6,7 @@ import Layout from "./layout/index";
 import Home from './pages/Home';
 import Signin from './pages/Signin';
 import Register from './pages/Register';
+import About from "./pages/About";
 
 import DashboardAdmin from "./pages/admin/dashboard";
 
@@ -31,6 +32,7 @@ function App() {
       <Layout>
         <Route path="/signin" component={Signin} />
         <Route path="/register" component={Register} />
+        <Route path="/about" component={About} />
         <Route path="/" exact={true} component={Home} />
 
         {userInfo?.isAdmin? adminRoute: userRoute}

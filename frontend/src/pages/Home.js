@@ -3,12 +3,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchEventList, followEvent, unfollowEvent } from "../store/actions/eventActions";
 import Flickity from "react-flickity-component";
 import { Accordion } from "react-bootstrap";
+
+import UpcomingEvent from "../components/UpcomingEvent";
 import WomanImage from "../assets/images/home/sitting_woman.png";
 import PlayBtn from "../assets/images/home/play-btn.svg";
 import TeacherImage from "../assets/images/home/teacher.png";
 import RightArrowBtn from "../assets/images/home/right-arrow.svg";
-import UpcomingEventImage from "../assets/images/home/upcoming-events.png";
-import PinkRightArrowBtn from "../assets/images/home/pink-right-arrow.svg";
 import StudentAvatar from "../assets/images/home/student-avatar.png";
 import StartQuote from "../assets/images/home/start-double-quote.svg";
 import EndQuote from "../assets/images/home/end-double-quote.svg";
@@ -42,12 +42,12 @@ const Home = props => {
         <img src={WomanImage} alt="sitting_woman"/>
         <div className="introduction-content">
           <div className="title">
-            <div className="main-title">
+            <h1 className="main-title">
               <i>Musical</i>BEST
-            </div>
-            <div className="sub-title">
+            </h1>
+            <h2 className="sub-title">
               <i>B</i>ootcamp <i>E</i>xploring <i>S</i>kills &amp; <i>T</i>alents
-            </div>
+            </h2>
           </div>
           <div className="description">
             <span>
@@ -65,12 +65,19 @@ const Home = props => {
           <img src={TeacherImage} alt=""/>
         </div>
         <div className="about-section-content">
-          <div className="title">
+          <h2 className="title">
             About <span className="sub-title"><i>Musical</i>Best</span>
-          </div>
+          </h2>
           <div className="description">
             <span>
-              MusicalBest is the international network of educational professionals from around the world from musical theater industry. With MusicalBest you learn live from the best and at the comfort of your own home.
+              MusicalBest is the international network of educational professionals from around the world 
+               from musical theater industry. With MusicalBest you learn live from the best and 
+               at the comfort of your own home.
+              <br/>
+              Whether it be work on your acting skills, extension and enhancement of your audition material, 
+               getting under control your stage fright and more, 
+               MusicalBEST delivers a world class live online learning experience to enhance 
+               your profecional skill and talents.
             </span>
           </div>
           <div className="ctrl-container">
@@ -78,28 +85,11 @@ const Home = props => {
           </div>
         </div>
       </div>
-      <div className="event-section">
-        <div className="event-section-content">
-          <div className="title">
-            Upcoming <i>Events</i>
-          </div>
-          <div className="description">
-            <span>
-              Overview of latest upcoming events. Discover our scheduled bootcamps, workshops, masterclasses and other relevant informations.
-            </span>
-          </div>
-          <div className="ctrl-container">
-            <button className="btn btn-white">View All Events <img src={PinkRightArrowBtn}/></button>
-          </div>
-        </div>
-        <div className="event-img-container">
-          <img src={UpcomingEventImage} alt="upcoming events"/>
-        </div>
-      </div>
+      <UpcomingEvent />
       <div className="students-saying-section">
-        <div className="title">
+        <h2 className="title">
           <span>What our <i>Students saying</i></span>
-        </div>
+        </h2>
         <div className="carousel-container">
           <Flickity
             className={'carousel'} // default ''
@@ -173,21 +163,25 @@ const Home = props => {
         </div>
       </div>
       <div className="question-section">
-        <div className="title">
+        <h2 className="title">
           <span>Frequently <i>Asked Questions</i></span>
-        </div>
+        </h2>
         <div className="question-container">
           <Accordion defaultActiveKey="0">
             <Accordion.Item eventKey="0">
-              <Accordion.Header>Can I choose my meals?</Accordion.Header>
+              <Accordion.Header>What is MusicalBEST?</Accordion.Header>
               <Accordion.Body>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                when an unknown printer took 
+                Musical BEST - Bootcamp exploring Skills &amp; Talents is a educational network platform for 
+                professionals from around the world from musical theater industry. 
+                With MusicalBEST you learn live from the best and at the comfort of your own home. 
+                Whether it be work on your acting skills, extension and enhancement of your audition 
+                material, getting under control your stage fright and more, MusicalBEST delivers 
+                a world class live online learning experience to enhance your profecional skill and 
+                talents. 
               </Accordion.Body>
             </Accordion.Item>
             <Accordion.Item eventKey="1">
-              <Accordion.Header>When will I receive my order?</Accordion.Header>
+              <Accordion.Header>Who are the teachers at MusicalBEST?</Accordion.Header>
               <Accordion.Body>
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
                 Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
@@ -195,7 +189,7 @@ const Home = props => {
               </Accordion.Body>
             </Accordion.Item>
             <Accordion.Item eventKey="2">
-              <Accordion.Header>Can I skip a delivery?</Accordion.Header>
+              <Accordion.Header>Which classes are right for me?</Accordion.Header>
               <Accordion.Body>
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
                 Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
@@ -203,7 +197,7 @@ const Home = props => {
               </Accordion.Body>
             </Accordion.Item>
             <Accordion.Item eventKey="3">
-              <Accordion.Header>Can I add Extras to my delivery?</Accordion.Header>
+              <Accordion.Header>How much does Class cost?</Accordion.Header>
               <Accordion.Body>
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
                 Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
