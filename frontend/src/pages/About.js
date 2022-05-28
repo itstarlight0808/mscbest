@@ -2,8 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
 import UpcomingEvent from "../components/UpcomingEvent";
+import FrequentlyQuestion from "../components/FrequentlyQuestion";
+
 import TeacherImage from "../assets/images/home/teacher.png";
 import StudentImage from "../assets/images/about/student.png";
+import TeacherTalkingImage from "../assets/images/about/teacher-talking.png";
 
 const About = props => {
     return (
@@ -60,9 +63,46 @@ const About = props => {
                 </div>
                 <div className="img-container">
                     <img src={StudentImage} alt="Student Image"/>
+                    <div className="ctrl-container"><button className="btn btn-orange">Get Started</button></div>
                 </div>
             </div>
             <UpcomingEvent />
+            <div className="for-teacher-section">
+                <div className="img-container">
+                    <img src={TeacherTalkingImage} alt="Student Image"/>
+                    <div className="ctrl-container"><button className="btn btn-orange">Get Started</button></div>
+                </div>
+                <div className="for-teacher-content">
+                    <h2 className="title">
+                        for <span>Teachers</span>
+                    </h2>
+                    <div className="description">
+                        <p>
+                            Talented people are everywhere, but opportunities can be harder to find. Be your best at the next opportunity, MusicalBest have all the right tools for you.
+
+                            MusicalBest teachers are real professionals coming from the heart
+                            of the industry and passionate about share they experience and knowledge. We are always on lookout for the right fit. If you feel passionate about our Industry, has experience, would love to share your knowledge with others and feel you are the right person to work with us, we would love to hear from you.
+                            What we can offer you:
+                        </p>
+                        <p>
+                            <span>Dedication </span> - work with people, teachers and students who passionate about what they do.
+                        </p>
+                        <p>
+                            <span>Network</span> - excellent Networking of industry professionals.
+                        </p>
+                        <p>
+                            <span>Flexibility</span> - teach in the comfort of your own home, at your own schedule.
+                        </p>
+                        <p>
+                            <span>Tools</span> -  variety of tools to enhance your teaching.
+                        </p>
+                        <p>
+                            <span>Personalization</span> - personalization of you teaching stile and material.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <FrequentlyQuestion />
         </div>
     );
 }

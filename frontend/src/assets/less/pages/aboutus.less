@@ -26,7 +26,7 @@
                         margin-right: 15px;
                         font-family: 'Zapfino';
                         font-weight: 400;
-                        font-size: 48px;
+                        font-size: 50px;
                     }
                 }
             }
@@ -38,12 +38,14 @@
             }
         }
     }
-    .for-students-section {
+    .for-students-section, .for-teacher-section {
         display: flex;
-        .for-students-content {
+        margin-bottom: 80px;
+
+        .for-students-content, .for-teacher-content {
             max-width: 924px;
             margin-left: 53px;
-            
+
             .title {
                 font-family: 'Montserrat';
                 font-weight: 700;
@@ -52,11 +54,12 @@
                 span {
                     font-family: 'Zapfino';
                     font-weight: 400;
-                    font-size: 48px;
+                    font-size: 50px;
                     color: @purple-color;
                 }
             }
             .description {
+                padding-top: 28px;
                 p {
                     color: #646464;
                     font-weight: 400;
@@ -69,7 +72,21 @@
             }
         }
         .img-container {
+            > img {
+                width: 92%;
+            }
+            .ctrl-container {
+                margin-top: -65px;
+                display: flex;
+                justify-content: center;
+            }
+        }
+    }
+    .for-teacher-section {
+        margin-top: 105px;
 
+        .for-teacher-content {
+            margin: 0 70px 0 0;
         }
     }
 }
