@@ -13,7 +13,7 @@ module.exports = {
       // must be an absolute path (use the Node.js path module)
       filename: "bundle.js", // string,
       // the filename template for entry chunks,
-      assetModuleFilename: "images/[hash][ext][query]"
+      assetModuleFilename: "assets/[hash][ext][query]"
     },
     module: {
         rules: [
