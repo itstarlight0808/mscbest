@@ -1,0 +1,55 @@
+.class-advertisement {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+
+    .img-container {
+        width: 100%;
+
+        img {
+            width: 100%;
+        }
+    }
+    &-section {
+        position: absolute;
+        right: 0;
+        width: 600px;
+        height: 100%;
+        background: rgba(34, 34, 34, 0.5);
+
+        .description {
+            padding: 40px 26px 0 72px;
+            font-size: 19px;
+            color: @white-color;
+            text-align: center;
+        }
+        .title {
+            padding: 4vw 2vw 0 2vw;
+            font-family: 'Montserrat';
+            font-weight: 700;
+            font-size: 4vw;
+            color: @white-color;
+            text-align: center;
+        }
+        .ctrl-container {
+            display: flex;
+            justify-content: center;
+            padding-top: 9vw;
+            text-align: center;
+
+            .btn-play {
+                display: flex;
+                align-items: center;
+                margin-left: 30px;
+                font-family: 'Montserrat';
+                font-weight: 800;
+                font-size: 16px;
+                color: @white-color;
+
+                svg {
+                    margin-right: 10px;
+                }
+            }
+        }
+    }
+}
