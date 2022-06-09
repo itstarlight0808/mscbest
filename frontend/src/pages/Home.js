@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchEventList, followEvent, unfollowEvent } from "../store/actions/eventActions";
 import Flickity from "react-flickity-component";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import UpcomingEvent from "../components/UpcomingEvent";
 import FrequentlyQuestion from "../components/FrequentlyQuestion";
 
 import WomanImage from "../assets/images/home/sitting_woman.png";
-import PlayBtn from "../assets/images/home/play-btn.svg";
 import TeacherImage from "../assets/images/home/teacher.png";
 import RightArrowBtn from "../assets/images/home/right-arrow.svg";
 import StudentAvatar from "../assets/images/home/student-avatar.png";
@@ -57,7 +57,7 @@ const Home = props => {
           </div>
           <div className="ctrl-container">
             <button className="btn btn-orange">Get Started</button>
-            <button className="btn btn-play"><img src={PlayBtn} alt="play button"/>Watch Video</button>
+            <button className="btn btn-play"><FontAwesomeIcon icon="far fa-play-circle"/>Watch Video</button>
           </div>
         </div>
       </div>

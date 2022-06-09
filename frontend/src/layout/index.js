@@ -45,7 +45,7 @@ const Layout = (props) => {
                                         CLASSES
                                     </a>
                                     <ul className="dropdown-menu" aria-labelledby="classDropdownMenu">
-                                        <li><Link to="/" className="dropdown-item">Action</Link></li>
+                                        <li><Link to="/class" className="dropdown-item">Classes</Link></li>
                                         <li><Link to="/" className="dropdown-item">Another action</Link></li>
                                         <li><Link to="/" className="dropdown-item">Something else here</Link></li>
                                     </ul>
