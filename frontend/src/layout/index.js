@@ -90,7 +90,7 @@ const Layout = (props) => {
                             <Link to="/" className="menu-link">BLOG</Link>
                         </li>
                         <li className="menu-item">
-                            <Link to="/" className="menu-link">CONTACT US</Link>
+                            <Link to="/contact" className="menu-link">CONTACT US</Link>
                         </li>
                         <li className="menu-item">
                             <Link to="/" className="menu-link">SITEMAP</Link>
