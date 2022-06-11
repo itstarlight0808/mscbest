@@ -9,6 +9,7 @@ import Register from './pages/Register';
 import About from "./pages/About";
 import Classes from "./pages/Classes";
 import Class from "./pages/Class";
+import ContactUs from "./pages/ContactUs";
 
 /** Admin pages **/
 import DashboardAdmin from "./pages/admin/dashboard";
@@ -37,8 +38,9 @@ function App() {
         <Route path="/signin" component={Signin} />
         <Route path="/register" component={Register} />
         <Route path="/about" component={About} />
-        <Route path="/class" component={Classes} />
+        <Route path="/class" component={Classes} exact={true} />
         <Route path="/class/:id" component={Class} />
+        <Route path="/contact" component={ContactUs} />
 
         {userInfo?.isAdmin? adminRoute: userRoute}
       </Layout>
