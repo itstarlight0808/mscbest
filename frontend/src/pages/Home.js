@@ -30,7 +30,7 @@ const Home = props => {
 
   const FlickityOption = {
     initialIndex: 1,
-    prevNextButtons: false,
+    prevNextButtons: true,
     pageDots: false
   }
 
@@ -82,7 +82,7 @@ const Home = props => {
             </span>
           </div>
           <div className="ctrl-container">
-            <button className="btn btn-pink">Learn More <img src={RightArrowBtn}/></button>
+            <button className="btn btn-purple">Learn More <img src={RightArrowBtn}/></button>
           </div>
         </div>
       </div>

@@ -3,11 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Accordion } from "react-bootstrap";
 
 import ClassAd from "../components/ClassAd";
+import Quote from "../components/QuoteComponent";
 import FrequentlyQuestion from "../components/FrequentlyQuestion";
 
 import TeacherAvatar from "../assets/images/avatars/teacher@3x3.png";
-import StartDoubleQuote from "../assets/images/class/start-double-quote.svg";
-import EndDoubleQuote from "../assets/images/class/end-double-quote.svg";
 import ClassThumb from "../assets/images/class/class-image.png";
 
 const Class = props => {
@@ -15,24 +14,10 @@ const Class = props => {
         <div className="class-detailed">
             <ClassAd />
             <div className="main-container">
-                <div className="quote-container">
-                    <div className="quote">
-                        <div className="start-quote">
-                            <img src={StartDoubleQuote} alt="double quote" />
-                        </div>
-                        <div className="quote-words">
-                            <span>
-                                There's no such thing as Perfection. But, in striving for perfection, we can achieve excellence.
-                            </span>
-                        </div>
-                        <div className="end-quote">
-                            <div className="speaker-name">
-                                <span>- Vince Lombardi</span>
-                            </div>
-                            <img src={EndDoubleQuote} alt="double quote" />
-                        </div>
-                    </div>
-                </div>
+                <Quote 
+                    writer="Vince Lombardi"
+                    quote="There's no such thing as Perfection. But, in striving for perfection, we can achieve excellence."
+                />
                 <div className="down-triangle"></div>
                 <div className="class-info-container">
                     <div className="info-section">
