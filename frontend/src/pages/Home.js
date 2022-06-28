@@ -40,7 +40,9 @@ const Home = props => {
         { style }
       </style>
       <div className="introduction-section">
-        <img src={WomanImage} alt="sitting_woman"/>
+        <div className="img-container">
+          <img src={WomanImage} alt="sitting_woman"/>
+        </div>
         <div className="introduction-content">
           <div className="title">
             <h1 className="main-title">

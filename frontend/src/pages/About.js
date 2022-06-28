@@ -1,14 +1,54 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import Flickity from "react-flickity-component";
 
 import UpcomingEvent from "../components/UpcomingEvent";
 import FrequentlyQuestion from "../components/FrequentlyQuestion";
 
 import TeacherImage from "../assets/images/home/teacher.png";
+import NewsImage from "../assets/images/about/news.png";
+import SlideWhiteIcon from "../assets/images/about/slide-white.svg";
+import VideoLearningImage from "../assets/images/about/video_learning.png";
 import StudentImage from "../assets/images/about/student.png";
 import TeacherTalkingImage from "../assets/images/about/teacher-talking.png";
 
 const About = props => {
+    const FlickityOption = {
+        initialIndex: 1,
+        prevNextButtons: true,
+        pageDots: false
+    }
+    const newsList = [
+        {
+            title: "meisner with music",
+            description: `Bir topluma dışarıdan müdahalelerde bulunulduğuna inanılan komplo teorilerini ifade eder. 
+                “Dış mihrak” olarak ifade edilen bu türe günümüzde çok sık rastlarız. Politikacılar, bunlara inanmasa 
+                dahi, halka böyle bir imaj sunup onların inanmasını ve dışarıdaki bir düşmana karşı birlik olunması 
+                gerektiğini söylerler.`
+        },
+        {
+            title: "meisner with music",
+            description: `Bir topluma dışarıdan müdahalelerde bulunulduğuna inanılan komplo teorilerini ifade eder. 
+                “Dış mihrak” olarak ifade edilen bu türe günümüzde çok sık rastlarız. Politikacılar, bunlara inanmasa 
+                dahi, halka böyle bir imaj sunup onların inanmasını ve dışarıdaki bir düşmana karşı birlik olunması 
+                gerektiğini söylerler.`
+        },
+        {
+            title: "meisner with music",
+            description: `Bir topluma dışarıdan müdahalelerde bulunulduğuna inanılan komplo teorilerini ifade eder. 
+                “Dış mihrak” olarak ifade edilen bu türe günümüzde çok sık rastlarız. Politikacılar, bunlara inanmasa 
+                dahi, halka böyle bir imaj sunup onların inanmasını ve dışarıdaki bir düşmana karşı birlik olunması 
+                gerektiğini söylerler.`
+        },
+        {
+            title: "meisner with music",
+            description: `Bir topluma dışarıdan müdahalelerde bulunulduğuna inanılan komplo teorilerini ifade eder. 
+                “Dış mihrak” olarak ifade edilen bu türe günümüzde çok sık rastlarız. Politikacılar, bunlara inanmasa 
+                dahi, halka böyle bir imaj sunup onların inanmasını ve dışarıdaki bir düşmana karşı birlik olunması 
+                gerektiğini söylerler.`
+        }
+    ]
+
     return (
         <div className="about-us">
             <div className="about-section">
@@ -33,7 +73,39 @@ const About = props => {
                     </div>
                 </div>
             </div>
-            <div className="for-students-section">
+            <div className="news-section">
+                <div className="img-container">
+                    <img src={NewsImage} alt="news image" />
+                </div>
+                <Flickity
+                    className={'carousel'} // default ''
+                    elementType={'div'} // default 'div'
+                    options={FlickityOption} // takes flickity options {}
+                    disableImagesLoaded={false} // default false
+                    reloadOnUpdate // default false
+                    static // default false
+                >
+                    {
+                        newsList.map((one, index) => {
+                            return (
+                                <div className="_item" key={`news_${index}`}>
+                                    <img src={VideoLearningImage} alt="video learning image"/>
+                                    <h2 className="title">
+                                        {one.title}
+                                    </h2>
+                                    <p className="description">
+                                        {one.description}
+                                    </p>
+                                    <div class="ctrl-container">
+                                        <span>MORE INFO</span><img src={SlideWhiteIcon} alt="pointer icon" />
+                                    </div>
+                                </div>
+                            );        
+                        })
+                    }
+                </Flickity>
+            </div>
+            <div id="students" className="for-students-section">
                 <div className="for-students-content">
                     <h2 className="title">
                         for <span>Students</span>
@@ -63,14 +135,14 @@ const About = props => {
                 </div>
                 <div className="img-container">
                     <img src={StudentImage} alt="Student Image"/>
-                    <div className="ctrl-container"><button className="btn btn-orange">Get Started</button></div>
+                    <div className="ctrl-container"><button className="btn btn-orange">Get Started Today</button></div>
                 </div>
             </div>
             <UpcomingEvent />
-            <div className="for-teacher-section">
+            <div id="teachers" className="for-teacher-section">
                 <div className="img-container">
                     <img src={TeacherTalkingImage} alt="Student Image"/>
-                    <div className="ctrl-container"><button className="btn btn-orange">Get Started</button></div>
+                    <div className="ctrl-container"><button className="btn btn-orange">Get Started Today</button></div>
                 </div>
                 <div className="for-teacher-content">
                     <h2 className="title">
