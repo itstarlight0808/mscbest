@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Dialog, DialogContent, makeStyles } from "@material-ui/core";
+import { Dialog, DialogContent, DialogTitle, makeStyles } from "@material-ui/core";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import ClassAd from "../components/ClassAd";
 import Quote from "../components/QuoteComponent";
@@ -14,7 +15,12 @@ import Teacher4 from "../assets/images/teachers/teacher4.png";
 const useDialogStyles = makeStyles(theme => {
     return {
         form: {
-            background: "linear-gradient(180deg, #E5E5E5 12.37%, #5F269E 100%)"
+            
+        },
+        closeIcon: {
+            float: "right",
+            color: "#fff",
+            cursor: "pointer"
         }
     }
 });
@@ -220,6 +226,10 @@ const Teachers = props => {
         },
     ];
     const [selected, setSelected] = useState(-1);
+
+    const closeTeacherDialog = () => {
+        setSelected(-1);
+    }
     return (
         <div className="teachers-container">
             <ClassAd />
@@ -245,10 +255,11 @@ const Teachers = props => {
             <FrequentlyQuestion />
             <Dialog
                 open={selected >= 0} 
-                onClose={() => setSelected(-1)}
                 className="teacher-modal"
                 fullWidth={true}
+                keepMounted
             >
+                <DialogTitle><FontAwesomeIcon icon="fas fa-xmark" size="lg" className={ `${dialogClasses.closeIcon} btn-animation` } onClick={closeTeacherDialog} /></DialogTitle>
                 <DialogContent className={dialogClasses.form}>
                     <TeacherComponent data={teacherList[selected]} />
                 </DialogContent>

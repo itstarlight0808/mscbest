@@ -8,6 +8,7 @@ const Classes = props => {
     const classInfo = {
         name: 'Holly Hylton',
         subtitle: "Meisner with Music",
+        type: "Master Class",
         description: "You will learn to apply the Meisner Technique in your storytelling through song and Holly will help you develop a set of tools to approach your material.",
         date: "01 June 2020"
     }

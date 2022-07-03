@@ -46,9 +46,9 @@ const Class = props => {
                             </div>
                         </div>
                         <div className="ctrl-container">
-                            <button className="btn btn-play"><FontAwesomeIcon icon="far fa-play-circle" />Watch Video</button>
+                            <button className="btn btn-play"><FontAwesomeIcon icon="far fa-play-circle" /><span>Watch Video</span></button>
                             <button className="btn btn-orange">Get Started</button>
-                            <button className="btn btn-share"><FontAwesomeIcon icon="far fa-paper-plane"/>Share with friends</button>
+                            <button className="btn btn-share"><FontAwesomeIcon icon="far fa-paper-plane"/><span>Share with friends</span></button>
                         </div>
                         <div className="info-body">
                             <div className="img-container">
@@ -56,7 +56,7 @@ const Class = props => {
                                     <img src={ClassThumb} alt="Class Image"/>
                                     <div className="ctrl-container">
                                         <button className="btn btn-orange">Get Started</button>
-                                        <button className="btn btn-play"><FontAwesomeIcon icon="fas fa-play-circle" />Watch Video</button>
+                                        <button className="btn btn-play"><FontAwesomeIcon icon="fas fa-play-circle" /><span>Watch Video</span></button>
                                     </div>
                                 </div>
                             </div>

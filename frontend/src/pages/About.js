@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Flickity from "react-flickity-component";
 
@@ -11,6 +12,7 @@ import SlideWhiteIcon from "../assets/images/about/slide-white.svg";
 import VideoLearningImage from "../assets/images/about/video_learning.png";
 import StudentImage from "../assets/images/about/student.png";
 import TeacherTalkingImage from "../assets/images/about/teacher-talking.png";
+import RightArrowBtn from "../assets/images/home/right-arrow.svg";
 
 const About = props => {
     const FlickityOption = {
@@ -70,6 +72,9 @@ const About = props => {
                             MusicalBEST delivers a world class live online learning experience to enhance 
                             your profecional skill and talents.
                         </span>
+                    </div>
+                    <div className="ctrl-container">
+                        <Link to="/company" className="btn btn-purple btn-sm">More Info <img src={RightArrowBtn}/></Link>
                     </div>
                 </div>
             </div>
@@ -135,14 +140,14 @@ const About = props => {
                 </div>
                 <div className="img-container">
                     <img src={StudentImage} alt="Student Image"/>
-                    <div className="ctrl-container"><button className="btn btn-orange">Get Started Today</button></div>
+                    <div className="ctrl-container"><Link to="/signup" className="btn btn-orange">Get Started Today</Link></div>
                 </div>
             </div>
             <UpcomingEvent />
             <div id="teachers" className="for-teacher-section">
                 <div className="img-container">
                     <img src={TeacherTalkingImage} alt="Student Image"/>
-                    <div className="ctrl-container"><button className="btn btn-orange">Get Started Today</button></div>
+                    <div className="ctrl-container"><Link to="/signup" className="btn btn-orange">Get Started Today</Link></div>
                 </div>
                 <div className="for-teacher-content">
                     <h2 className="title">

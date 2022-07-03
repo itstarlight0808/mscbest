@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchEventList, followEvent, unfollowEvent } from "../store/actions/eventActions";
 import Flickity from "react-flickity-component";
@@ -58,7 +59,7 @@ const Home = props => {
             </span>
           </div>
           <div className="ctrl-container">
-            <button className="btn btn-orange">Get Started</button>
+            <Link to="/signup" className="btn btn-orange">Get Started</Link>
             <button className="btn btn-play"><FontAwesomeIcon icon="far fa-play-circle"/>Watch Video</button>
           </div>
         </div>
@@ -84,7 +85,7 @@ const Home = props => {
             </span>
           </div>
           <div className="ctrl-container">
-            <button className="btn btn-purple">Learn More <img src={RightArrowBtn}/></button>
+            <Link to="/about" className="btn btn-purple">Learn More <img src={RightArrowBtn}/></Link>
           </div>
         </div>
       </div>
