@@ -13,26 +13,29 @@ const ClassComponent = props => {
     }
     return (
         <div className="class-component">
-            <div className="info-container" onClick={() => goToClassDetail()}>
-                <img src={ClassHeaderImage} alt="class header image"/>
-            </div>
-            <div className="detail-container">
-                <div className="teacher-avatar">
-                    <img src={TeacherAvatar} alt="teacher avatar"/>
-                    <span>{classInfo.name}</span>
+            <div className="class-card">
+                <div className="info-container" onClick={() => goToClassDetail()}>
+                    <img src={ClassHeaderImage} alt="class header image"/>
                 </div>
-                <h3 className="subtitle">{classInfo.subtitle}</h3>
-                <div className="description">
-                    <span>
-                        {classInfo.description}
-                    </span>
-                </div>
-                <div className="date">
-                    <span>Date: {classInfo.date}</span>
-                </div>
-                <div className="ctrl-container">
-                    <span>CLASS INFO</span>
-                    <button className="btn btn-orange">Get Started</button>
+                <div className="detail-container">
+                    <div className="teacher-avatar">
+                        <img src={TeacherAvatar} alt="teacher avatar"/>
+                        <span>{classInfo.name}</span>
+                    </div>
+                    <h3 className="subtitle">{classInfo.subtitle}</h3>
+                    <div className="description">
+                        <span>
+                            {classInfo.description}
+                        </span>
+                    </div>
+                    <div className="date">
+                        <span>Date: {classInfo.date}</span>
+                        <span>Type: {classInfo.type}</span>
+                    </div>
+                    <div className="ctrl-container">
+                        <span>CLASS INFO</span>
+                        <button className="btn btn-orange">Get Started</button>
+                    </div>
                 </div>
             </div>
         </div>

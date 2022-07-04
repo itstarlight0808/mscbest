@@ -9,30 +9,33 @@ const TeacherComponent = props => {
     if(!data)
         return (<></>);
 
-    const [activeTab, setActiveTab] = useState('bio');
+    const [activeTab, setActiveTab] = useState('');
 
     return (
         <div className="teacher-component">
-            <div className="img-container">
+            <div className={`img-container ${activeTab? 'active': ''}`}>
                 <img src={data.photo} alt="teacher image"/>
             </div>
-            <div className="custom-tooltip">
+            <div className={`custom-tooltip ${activeTab? 'active': ''}`}>
                 <div className="tooltip-header">
                     <h2>{data.name}</h2>
-                    <div className="tabs">
-                        <button className={` btn btn-tab ${activeTab === 'bio'? 'active': ''} `} onClick={() => setActiveTab('bio')}>
-                            <div className="skew-div"></div>
-                            <h3>BIO</h3>
-                        </button>
-                        <button className={` btn btn-tab ${activeTab === 'classes'? 'active': ''} `} onClick={() => setActiveTab('classes')}>
-                            <div className="skew-div"></div>
-                            <h3>CLASSES</h3>
-                        </button>
-                    </div>
-                    <div className="social-links">
-                        <FontAwesomeIcon icon="fab fa-linkedin-in" className="social-icon" />
-                        <FontAwesomeIcon icon="fab fa-facebook-f" className="social-icon" />
-                        <FontAwesomeIcon icon="fab fa-twitter" className="social-icon" />
+                    <div className="inline-group">
+                        <div className="tabs">
+                            <button className={` btn btn-tab ${activeTab === 'bio'? 'active': ''} `} onClick={() => setActiveTab('bio')}>
+                                <div className="skew-div"></div>
+                                <h3>BIO</h3>
+                            </button>
+                            <button className={` btn btn-tab ${activeTab === 'classes'? 'active': ''} `} onClick={() => setActiveTab('classes')}>
+                                <div className="skew-div"></div>
+                                <h3>CLASSES</h3>
+                            </button>
+                        </div>
+                        <div className="social-links">
+                            <FontAwesomeIcon icon="fab fa-facebook-f" className="social-icon" />
+                            <FontAwesomeIcon icon="fab fa-twitter" className="social-icon" />
+                            <FontAwesomeIcon icon="fab fa-linkedin-in" className="social-icon" />
+                            <FontAwesomeIcon icon="fab fa-dribbble" className="social-icon" />
+                        </div>
                     </div>
                 </div>
                 <div className="tooltip-body">
