@@ -1,10 +1,19 @@
 .about-us {
     .about-section {
         display: flex;
-        padding-top: 155px;
+        padding: 106px 50px 0 50px;
+
+        @media (max-width: @screen-sm) {
+           display: block;
+           padding: 20px;
+        }
 
         .img-container {
-            width: 30%;
+            width: 35%;
+
+            @media (max-width: @screen-sm) {
+                width: 100%;
+            }
 
             > img {
                 width: 100%;
@@ -12,6 +21,13 @@
         }
         .about-content {
             width: 65%;
+            padding-left: 60px;
+
+            @media (max-width: @screen-sm) {
+                width: 100%;
+                padding: 20px 0 0;
+            }
+
             .title {
                 font-family: 'Montserrat';
                 font-weight: 700;
@@ -36,15 +52,125 @@
                 font-weight: 400;
                 font-size: 16px;
             }
+            
+            .ctrl-container {
+                margin-top: 24px;
+            }
+        }
+    }
+    .news-section {
+        display: flex;
+        padding: 70px;
+        gap: 56px;
+
+        @media (max-width: @screen-sm) {
+            display: block;
+            padding: 20px;
+        }
+
+        .img-container {
+            display: flex;
+            justify-content: center;
+        }
+        .carousel {
+            flex-grow: 1;
+            max-width: 900px;
+
+            @media (max-width: @screen-sm) {
+                margin: 20px 10px 0;
+            }
+
+            ._item {
+                width: 300px;
+                height: 300px;
+                padding: 14px 15px;
+                background: #9627F5;
+
+                & + ._item {
+                    margin-left: 13px;
+                }
+
+                > img {
+                    width: 100%;
+                }
+                .title {
+                    padding: 10px 0 5px;
+                    font-family: 'Montserrat';
+                    font-weight: 400;
+                    font-size: 18px;
+                    text-transform: uppercase;
+                }
+                .description {
+                    font-style: italic;
+                    font-weight: 400;
+                    font-size: 12px;
+                    color: #fff;
+                    line-height: 14px;
+                    text-align: justify;
+                    margin-bottom: 8px;
+                }
+                .ctrl-container {
+                    display: flex;
+                    justify-content: flex-end;
+                    align-items: center;
+
+                    span {
+                        font-weight: 700;
+                        font-size: 9px;
+                        text-align: justify;
+                        color: #FFFFFF;
+                    }
+                    img {
+                        margin-left: 5px;
+                        cursor: pointer;
+                        transition: .3s;
+                        border-radius: 50%;
+
+                        &:hover {
+                            transform: rotate(360deg);
+                        }
+                    }
+                }
+            }
+            .flickity-prev-next-button {
+                &.previous {
+                    margin-left: -58px;
+
+                    @media (max-width: @screen-sm) {
+                        margin-left: -34px;
+                    }
+                }
+                
+                &.next {
+                    margin-right: -58px;
+
+                    @media (max-width: @screen-sm) {
+                        margin-right: -34px;
+                    }
+                }
+            }
         }
     }
     .for-students-section, .for-teacher-section {
         display: flex;
-        margin-bottom: 80px;
+        padding: 0 50px 80px 50px;
+
+        @media (max-width: @screen-sm) {
+            display: block;
+            padding: 20px
+        }
 
         .for-students-content, .for-teacher-content {
-            max-width: 924px;
-            margin-left: 53px;
+            width: 65%;
+            padding-right: 55px;
+
+            @media (max-width: @screen-md) {
+                width: 50%;
+            }
+            @media (max-width: @screen-sm) {
+                width: 100%;
+                padding: 0;
+            }
 
             .title {
                 font-family: 'Montserrat';
@@ -60,6 +186,11 @@
             }
             .description {
                 padding-top: 28px;
+
+                @media (max-width: @screen-sm) {
+                    padding-top: 4px;
+                }
+
                 p {
                     color: #646464;
                     font-weight: 400;
@@ -72,21 +203,41 @@
             }
         }
         .img-container {
+            width: 35%;
+
+            @media (max-width: @screen-md) {
+                width: 50%;
+            }
+            @media (max-width: @screen-sm) {
+                width: 100%;
+            }
+
             > img {
-                width: 92%;
+                width: 100%;
             }
             .ctrl-container {
-                margin-top: -65px;
+                margin-top: 45px;
                 display: flex;
                 justify-content: center;
             }
         }
     }
+    .event-section {
+        background: #9266C2;
+    }
     .for-teacher-section {
         margin-top: 105px;
 
+        @media (max-width: @screen-sm) {
+            margin-top: 20px;
+        }
+
         .for-teacher-content {
-            margin: 0 70px 0 0;
+            padding: 0 0 0 40px;
+
+            @media (max-width: @screen-sm) {
+                padding: 20px 0 0;
+            }
         }
     }
 }

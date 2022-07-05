@@ -1,19 +1,41 @@
 .home {
     .introduction-section {
-        display: flex;
-        justify-content: flex-end;
-        height: 45vw;
-
-        > img {
-            position: absolute;
-            top: 0px;
-            left: 0px;
+        .img-container {
             width: 100%;
-            z-index: -1;
+            margin-top: -134px;
+            overflow: hidden;
+
+            img {
+                width: 100%;
+    
+                @media (max-width: @screen-md) {
+                    height: 450px;
+                }
+                @media (max-width: @screen-sm) {
+                    width: unset;
+                }
+            }
         }
         .introduction-content {
-            max-width: 700px;
-            margin: 20px 60px 0px 0px;
+            position: absolute;
+            top: 150px;
+            right: 100px;
+            width: 700px;
+
+            @media (max-width: @screen-xl) {
+                right: 20px;
+            }
+            @media (max-width: @screen-lg) {
+                width: 500px;
+            }
+            @media (max-width: @screen-md) {
+                top: 110px;
+            }
+            @media (max-width: @screen-sm) {
+                width: 340px;
+                top: 140px;
+                right: 10px;
+            }
 
             .title {
                 .main-title {
@@ -22,11 +44,15 @@
                     font-size: 32px;
                     color: @purple-color;
 
+                    @media (max-width: @screen-sm) {
+                        display: none;
+                    }
+
                     i {
                         margin-right: 15px;
                         font-family: 'Zapfino';
                         font-weight: 400;
-                        font-size: 48px;
+                        font-size: 54px;
                         color: @white-color;
                     }
                 }
@@ -36,9 +62,17 @@
                     font-size: 30px;
                     color: @white-color;
 
+                    @media (max-width: @screen-sm) {
+                        font-size: 24px;
+                    }
+
                     i {
                         font-size: 30px;
                         color: @purple-color;
+
+                        @media (max-width: @screen-sm) {
+                            font-size: 24px;
+                        }
                     }
                 }
             }
@@ -46,11 +80,20 @@
                 margin-top: 70px;
                 font-size: 19px;
                 color: @white-color;
+
+                @media (max-width: @screen-lg) {
+                   margin-top: 30px;
+                   font-size: 12px;
+                }
             }
             .ctrl-container {
-                margin-top: 105px;
+                margin-top: 125px;
                 display: flex;
                 justify-content: center;
+
+                @media (max-width: @screen-lg) {
+                    margin-top: 15px;
+                }
 
                 .btn-play {
                     display: flex;
@@ -71,12 +114,34 @@
 
     .about-section {
         display: flex;
-        .about-img-container {
+        justify-content: center;
+        align-items: center;
+        padding: 140px 20px 85px 20px;
 
+        @media (max-width: @screen-sm) {
+            display: block;
+            padding: 30px 14px;
+        }
+
+        .about-img-container {
+            width: 45%;
+
+            @media (max-width: @screen-sm) {
+                width: 100%;
+            }
+
+            img {
+                width: 100%;
+            }
         }
         .about-section-content {
-            padding: 220px 30px 0 0;
-            max-width: 710px;
+            padding: 20px 30px 0 60px;
+            width: 55%;
+
+            @media (max-width: @screen-sm) {
+                width: 100%;
+                padding: 20px 0 30px;
+            }
 
             .title {
                 font-family: 'Montserrat';
@@ -109,8 +174,13 @@
     }
 
     .students-saying-section {
+        margin-top: 140px;
+
+        @media (max-width: @screen-sm) {
+            margin-top: 20px;
+        }
+
         .title {
-            margin-top: 140px;
             text-align: center;
 
             > span {

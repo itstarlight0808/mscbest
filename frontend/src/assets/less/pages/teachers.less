@@ -1,6 +1,10 @@
 .teachers-container {
     .quote-container {
         margin: 100px 0 67px;
+
+        @media (max-width: @screen-sm) {
+            margin: 50px 24px;
+        }
     }
     .teacher-list {
         display: flex;
@@ -10,10 +14,19 @@
         background: linear-gradient(180deg, #E5E5E5 12.37%, #5F269E 100%);
         padding: 30px;
 
+        @media (max-width: @screen-sm) {
+            display: block;
+            padding: 0;
+        }
+
         .teacher-photo {
             position: relative;
             width: 49%;
             cursor: pointer;
+
+            @media (max-width: @screen-sm) {
+                width: 100%;
+            }
 
             > img {
                 width: 100%;
@@ -33,6 +46,10 @@
                 padding: 40px;
                 transition: opacity .3s;
 
+                @media (max-width: @screen-sm) {
+                    display: none;
+                }
+
                 > h2 {
                     font-weight: 700;
                     font-size: 24px;
@@ -48,9 +65,19 @@
     }
 }
 .teacher-modal {
+    .MuiBackdrop-root {
+        background:rgba(0, 0, 0, 0.9)
+    }
     .MuiDialog-paper {
         max-width: 100%;
         width: 100%;
         margin: 0;
+        background: transparent;
+
+        .MuiDialogContent-root {
+            @media (max-width: @screen-sm) {
+                padding: 0;
+            }
+        }
     }
 }

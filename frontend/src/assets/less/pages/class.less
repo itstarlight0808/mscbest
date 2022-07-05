@@ -1,58 +1,19 @@
 .class-detailed {
     .main-container {
         margin: 30px 0;
-
-        .quote-container {
-            display: flex;
-            justify-content: center;
-
-            .quote {
-                width: 555px;
-                background: #ECF0F4;
-    
-                .start-quote {
-                    > img {
-                        margin: -13px 0 0 -19px;
-                    }
-                }
-    
-                .quote-words {
-                    padding: 0 70px;
-                    font-weight: 400;
-                    font-size: 18px;
-                }
-    
-                .end-quote {
-                    display: flex;
-                    justify-content: space-between;
-    
-                    > img {
-                        margin: 0 -18px -13px;
-                    }
-    
-                    .speaker-name {
-                        padding: 16px;
-                        font-size: 14px;
-                        font-style: italic;
-                        font-weight: 500;
-                        color: #494949;
-                    }
-                }
-            }
-        }
         
         .down-triangle {
             height: 90px;
-            border-top: 50px solid white;
-            border-left: 50vw solid #4a1289;
-            border-right: 50vw solid #4a1289;
+            border-top: 50px solid @white-color;
+            border-left: 50vw solid @purple-color;
+            border-right: 50vw solid @purple-color;
             margin-bottom: -40px;
         }
         .up-triangle {
             height: 90px;
-            border-bottom: 50px solid white;
-            border-left: 50vw solid #4a1289;
-            border-right: 50vw solid #4a1289;
+            border-bottom: 50px solid @white-color;
+            border-left: 50vw solid @purple-color;
+            border-right: 50vw solid @purple-color;
             margin-top: -40px;
         }
 
@@ -61,6 +22,10 @@
 
             .info-section {
                 padding: 30px 55px 0 35px;
+
+                @media (max-width: @screen-md) {
+                    padding: 30px 15px 0;
+                }
 
                 .info-header {
                     .class-name {
@@ -97,6 +62,12 @@
                     justify-content: flex-end;
                     margin-top: 100px;
 
+                    .btn span{
+                        @media (max-width: @screen-sm) {
+                            display: none;
+                        }
+                    }
+
                     .btn-play {
                         display: flex;
                         align-items: center;
@@ -128,8 +99,16 @@
                     display: flex;
                     margin-top: 15px;
 
+                    @media (max-width: @screen-sm) {
+                        display: block;
+                    }
+
                     .img-container {
                         width: 55%;
+
+                        @media (max-width: @screen-sm) {
+                            width: 100%;
+                        }
 
                         > div {
                             position: relative;
@@ -143,7 +122,11 @@
                                 top: 50%;
                                 left: 26%;
                                 display: flex;
-    
+
+                                @media (max-width: @screen-xs) {
+                                    left: 30px;
+                                }
+                                
                                 .btn-play {
                                     margin-left: 28px;
                                     display: flex;
@@ -163,6 +146,11 @@
                     .class-structure {
                         width: 45%;
                         padding-left: 25px;
+
+                        @media (max-width: @screen-sm) {
+                            padding: 20px 0 0;
+                            width: 100%;
+                        }
 
                         .title {
                             background: @white-color;
@@ -228,6 +216,10 @@
                     justify-content: space-between;
                     margin-top: 20px;
                     padding-bottom: 30px;
+
+                    @media (max-width: @screen-sm) {
+                        flex-direction: column-reverse;
+                    }
 
                     .info-list {
                         h4 {

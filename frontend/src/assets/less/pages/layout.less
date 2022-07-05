@@ -5,11 +5,24 @@
         > .container-fluid {
             align-items: flex-start;
 
-            .navbar-toggler-icon {
-                filter: invert(1);
+            .navbar-toggler {
+                box-shadow: none;
+
+                .navbar-toggler-icon {
+                    filter: invert(1);
+                }
             }
             .navbar-collapse {
                 margin-top: 28px;
+
+                @media (max-width: @screen-md) {
+                    position: absolute;
+                    right: 10px;
+                    top: 20px;
+                    background: @white-color;
+                    border-radius: 5px;
+                    z-index: 1;
+                }
 
                 .navbar-nav {
                     align-items: center;
@@ -17,6 +30,12 @@
                     .nav-item {
                         width: 100px;
                         height: 40px;
+
+                        @media (max-width: @screen-md) {
+                            width: 200px;
+                            height: auto;
+                            padding: 15px;
+                        }
 
                         .nav-link {
                             text-align: center;
@@ -27,6 +46,10 @@
                             font-size: 11px;
                             text-transform: uppercase;
                             transition: .3s;
+
+                            @media (max-width: @screen-md) {
+                                color: @black-color;
+                            }
 
                             &:hover {
                                 font-size: 14px;
@@ -76,24 +99,76 @@ main.main {
 
     .logo-container {
         padding-top: 16px;
-        text-align: center;
+        display: flex;
+        justify-content: space-between;
+
+        @media (max-width: @screen-sm) {
+            display: block;
+        }
 
         > img {
             width: 245px;
+        }
+
+        .subscribe-container {
+            width: 355px;
+
+            @media (max-width: @screen-sm) {
+                width: auto;
+                padding: 10px;
+            }
+
+            .text {
+                font-weight: 400;
+                font-size: 18px;
+                color: @white-color;
+            }
+            .subscribe-form {
+                margin-top: 5px;
+
+                > input {
+                    width: 230px;
+                    padding: 4.5px;
+                    font-size: 14px;
+                    border-radius: 3px;
+                    outline: none;
+                    border: none;
+                }
+
+                button {
+                    margin-left: 10px;
+                    background: @white-color;
+                    color: #5F269E;
+                }
+            }
         }
     }
     .footer-menu {
         display: flex;
         justify-content: center;
-        padding: 48px 0;
+        padding: 40px 0;
         color: @white-color;
+
+        @media (max-width: @screen-sm) {
+            display: block;
+        }
 
         > ul {
             display: flex;
+            flex-wrap: wrap;
+            
+            @media (max-width: @screen-sm) {
+                justify-content: center;
+                padding: 0;
+            }
 
             .menu-item {
                 list-style: none;
                 margin-left: 30px;
+
+                @media (max-width: @screen-sm) {
+                    margin: 10px;
+                }
 
                 .menu-link {
                     color: @white-color;
@@ -107,10 +182,35 @@ main.main {
         .social-links {
             margin-left: 66px;
 
+            @media (max-width: @screen-sm) {
+                margin: 0;
+                text-align: center;
+            }
+            
             i {
                 & + i {
                     margin-left: 40px;
                 }
+            }
+        }
+    }
+    .copyright-container {
+        padding: 0 26px 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        h4 {
+            font-size: 14px;
+            color: @white-color;
+        }
+
+        .privacy-container {
+            .menu-link {
+                margin-right: 10px;
+                color: white;
+                font-size: 14px;
+                text-decoration: none;
             }
         }
     }
