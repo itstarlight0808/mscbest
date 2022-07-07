@@ -38,25 +38,19 @@ const Layout = (props) => {
                                     </a>
                                     <ul className="dropdown-menu" aria-labelledby="aboutusDropdownMenu">
                                         <li><Link to="/about" className="dropdown-item">About Us</Link></li>
-                                        <li><Link to="/" className="dropdown-item">Another action</Link></li>
-                                        <li><Link to="/" className="dropdown-item">Something else here</Link></li>
+                                        <li><a href="/about?#news" className="dropdown-item">News</a></li>
+                                        <li><a href="/about?#teachers" className="dropdown-item">For Teachers</a></li>
+                                        <li><a href="/about?#students" className="dropdown-item">For Students</a></li>
                                     </ul>
                                 </li>
                                 <li className="nav-item dropdown">
-                                    <a className="nav-link dropdown-toggle" href="#" id="classDropdownMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        CLASSES
-                                    </a>
-                                    <ul className="dropdown-menu" aria-labelledby="classDropdownMenu">
-                                        <li><Link to="/class" className="dropdown-item">Classes</Link></li>
-                                        <li><Link to="/" className="dropdown-item">Another action</Link></li>
-                                        <li><Link to="/" className="dropdown-item">Something else here</Link></li>
-                                    </ul>
+                                    <Link to="/class" className="nav-link">CLASSES</Link>
                                 </li>
                                 <li className="nav-item">
                                     <Link to="/teacher" className="nav-link">TEACHERS</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link to="/get-started" className="nav-link get-started">GET STARTED</Link>
+                                    <Link to="/get-started" className="nav-link get-started">Sign Up</Link>
                                 </li>
                                 {userInfo ? (
                                     <>
