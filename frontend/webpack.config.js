@@ -9,11 +9,12 @@ module.exports = {
     output: {
     // options related to how webpack emits results
       path: path.resolve(__dirname, "dist"), // string
+      publicPath: "/mbj/",
       // the target directory for all output files
       // must be an absolute path (use the Node.js path module)
       filename: "bundle.js", // string,
       // the filename template for entry chunks,
-      assetModuleFilename: "assets/[hash][ext][query]"
+    //   assetModuleFilename: "assets/[hash][ext][query]"
     },
     module: {
         rules: [
@@ -47,7 +48,7 @@ module.exports = {
             favicon: './public/favicon.ico',
         }),
         new InterpolateHtmlPlugin({
-            PUBLIC_URL: 'public'
+            PUBLIC_URL: 'http://localhost:8000/public'
         })
     ],
     devServer: {
