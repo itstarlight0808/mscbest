@@ -247,6 +247,7 @@ const Teachers = props => {
                                     <h2>{teacher.name}</h2>
                                     <div>{(teacher.bio.length <= 350? teacher.bio: teacher.bio.substring(0, 350)) + "..."}</div>
                                 </div>
+                                <h2 className="pinned-teacher-name">{teacher.name}</h2>
                             </div>
                         );
                     })
