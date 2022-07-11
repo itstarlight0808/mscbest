@@ -1,65 +1,107 @@
-.question-section {
-    background: #ebe8fb;
 
-    .title {
-        padding-top: 20px;
-        text-align: center;
+.FQ-title {
+    padding: 20px 0;
+    text-align: center;
+    border-radius: 18px;
+    box-shadow: 0px 3px 14px rgba(74, 58, 255, 0.03), 0px -2px 4px rgba(20, 20, 43, 0.02), 0px 12px 24px rgba(20, 20, 43, 0.04);
 
-        span {
-            font-family: 'Montserrat';
-            font-weight: 700;
+    span {
+        font-family: 'Montserrat';
+        font-weight: 700;
+        font-size: 34px;
+
+        i {
             font-size: 34px;
+            font-weight: 700;
+            color: @purple-color;
+        }
+    }
+}
+.question-section {
+    background: #F7F7FB;
+    border-radius: 20px;
+    margin-top: 44px;
+    padding: 105px 0 155px;
 
-            i {
-                font-size: 34px;
-                font-weight: 700;
-                color: @purple-color;
+    @media (max-width: @screen-sm) {
+        padding: 20px 0;
+    }
+
+    .category-container {
+        text-align: center;
+        padding: 0 10px;
+
+        .category-item {
+            padding: 20px 40px;
+            border: 1px solid #D9DBE9;
+            color: #6F6C90;
+            background: @white-color;
+
+            @media (max-width: @screen-sm) {
+                width: 100%;
+            }
+
+            & + .category-item {
+                margin-left: 15px;
+
+                @media (max-width: @screen-sm) {
+                    margin: 0;
+                }
+            }
+
+            &.selected {
+                background: @purple-color;
+                color: @white-color;
             }
         }
     }
     .question-container {
         display: flex;
         justify-content: center;
-        padding: 105px 0 155px;
+        margin-top: 40px;
 
         .accordion {
             width: 768px;
             padding: 48px 24px;
-            background: #f3f5f6;
+            background: @white-color;
+
+            @media (max-width: @screen-sm) {
+                padding: 24px 0;
+            }
 
             .accordion-item {
                 border-radius: 8px;
+                border: none;
+                border-bottom: 1px solid #b7b7b721;
                 
-                & + .accordion-item {
-                    margin-top: 14px;
-                }
                 .accordion-header {
                     > .accordion-button {
-                        font-family: 'Inter';
-                        font-weight: 700;
-                        font-size: 18px;
+                        font-weight: 500;
+                        font-size: 22px;
                         box-shadow: none;
 
                         &:focus, &:active {
                             box-shadow: none;
                         }
+                        &::after {
+                            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'%3E%3C!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --%3E%3Cpath fill='%23170F49' d='M432 256c0 17.69-14.33 32.01-32 32.01H256v144c0 17.69-14.33 31.99-32 31.99s-32-14.3-32-31.99v-144H48c-17.67 0-32-14.32-32-32.01s14.33-31.99 32-31.99H192v-144c0-17.69 14.33-32.01 32-32.01s32 14.32 32 32.01v144h144C417.7 224 432 238.3 432 256z'/%3E%3C/svg%3E");
+                            transform: rotate(-90deg);
+                        }
                         &:not(.collapsed) {
-                            color: #000;
+                            color: @purple-color;
                             background: transparent;
 
                             &::after {
-                                color: #000;
-                                filter: grayscale(1);
+                                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'%3E%3C!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --%3E%3Cpath fill='%234A3AFF' d='M400 288h-352c-17.69 0-32-14.32-32-32.01s14.31-31.99 32-31.99h352c17.69 0 32 14.3 32 31.99S417.7 288 400 288z'/%3E%3C/svg%3E");
+                                transform: none;
                             }
                         }
                     }
                 }
                 .accordion-collapse {
-                    
                     .accordion-body {
-                        font-family: 'Inter';
+                        padding-top: 0;
                         font-weight: 400;
-                        font-size: 18px;
                         color: rgba(60, 60, 67, 0.85);
                     }
                 }

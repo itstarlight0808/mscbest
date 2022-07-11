@@ -46,6 +46,9 @@
                 padding: 40px;
                 transition: opacity .3s;
 
+                @media (max-width: @screen-md) {
+                    padding: 12px;
+                }
                 @media (max-width: @screen-sm) {
                     display: none;
                 }
@@ -55,11 +58,43 @@
                     font-size: 24px;
                     text-transform: capitalize;
                     color: @white-color;
+
+                    @media (max-width: @screen-md) {
+                        font-size: 18px;
+                    }
                 }
                 > div {
                     font-weight: 300;
                     color: @white-color;
+                    margin-top: 12px;
+
+                    @media (max-width: @screen-md) {
+                        font-size: 12px;
+                        margin-top: 4px;
+                    }
                 }
+            }
+
+            > h2 {
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                padding: 6px 10px;
+                font-weight: 400;
+                font-size: 20px;
+                text-transform: capitalize;
+                background: rgba(0, 0, 0, 0.6);
+                color: @white-color;
+                border-radius: 5px;
+                transition: opacity .3s;
+
+                @media (max-width: @screen-md) {
+                    font-size: 16px;
+                }
+            }
+
+            &:hover > h2 {
+                opacity: 0;
             }
         }
     }

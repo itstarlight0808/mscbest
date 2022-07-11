@@ -1,7 +1,7 @@
 .quote-container {
     display: flex;
     justify-content: center;
-    margin: 20px 0;
+    margin: 20px;
 
     .quote {
         width: 555px;
@@ -17,6 +17,10 @@
             padding: 0 70px;
             font-weight: 400;
             font-size: 18px;
+
+            @media (max-width: @screen-sm) {
+                padding: 0 30px;
+            }
         }
 
         .end-quote {

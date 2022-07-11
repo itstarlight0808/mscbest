@@ -5,15 +5,21 @@
 
     .img-container {
         width: 100%;
-
+        overflow: hidden;
+        
         img {
             width: 100%;
+
+            @media (max-width: @screen-sm) {
+                width: unset;
+                height: 300px;
+            }
         }
     }
     &-section {
         position: absolute;
         right: 0;
-        width: 600px;
+        max-width: 600px;
         height: 100%;
         background: rgba(34, 34, 34, 0.5);
 
@@ -22,6 +28,10 @@
             font-size: 19px;
             color: @white-color;
             text-align: center;
+
+            @media (max-width: @screen-sm) {
+                padding: 40px 20px 0;
+            }
         }
         .title {
             padding: 4vw 2vw 0 2vw;
@@ -30,12 +40,20 @@
             font-size: 4vw;
             color: @white-color;
             text-align: center;
+
+            @media (max-width: @screen-sm) {
+                padding-top: 14px;
+            }
         }
         .ctrl-container {
             display: flex;
             justify-content: center;
             padding-top: 9vw;
             text-align: center;
+
+            @media (max-width: @screen-sm) {
+                padding-top: 20px;
+            }
 
             .btn-play {
                 display: flex;

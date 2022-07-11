@@ -1,12 +1,23 @@
 .event-section {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
+    align-items: center;
     background: #5F269E;
+    padding: 120px 28px 30px;
 
-
+    @media (max-width: @screen-sm) {
+        flex-flow: column-reverse;
+        padding: 30px 28px 30px;
+    }
+    
     .event-section-content {
+        width: 40%;
         max-width: 470px;
-        margin-top: 230px;
+
+        @media (max-width: @screen-sm) {
+            padding-top: 20px;
+            width: 100%;
+        }
 
         .title {
             font-family: 'Montserrat';
@@ -24,12 +35,61 @@
             margin-top: 32px;
             color: @white-color;
             opacity: .7;
+
+            @media (max-width: @screen-sm) {
+                margin-top: 14px;
+            }
         }
         .ctrl-container {
-            margin-top: 152px;
+            margin-top: 100px;
+
+            @media (max-width: @screen-sm) {
+                margin-top: 14px;
+            }
         }
     }
     .event-img-container {
-        margin-top: 40px;
+        width: 60%;
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 670px;
+
+        @media (max-width: @screen-sm) {
+            width: 100%;
+        }
+
+        img {
+            &:nth-child(1) {
+                margin: 40px 30px 30px 0;
+
+                @media (max-width: @screen-lg) {
+                    width: 55%;
+                    margin: 40px 1vw 30px 0;
+                }
+            }
+            &:nth-child(2) {
+               height: 300px;
+
+               @media (max-width: @screen-lg) {
+                    width: 40%;
+                    height: auto;
+               }
+            }
+            &:nth-child(3) {
+                width: 40%;
+                margin: 28px 30px 0 0;
+
+                @media (max-width: @screen-lg) {
+                    margin: 28px 1vw 0 0;
+                }
+            }
+            &:nth-child(4) {
+                width: 55%;
+
+                @media (max-width: @screen-lg) {
+                    margin-top: 10px;
+                }
+            }
+        }
     }
 }
