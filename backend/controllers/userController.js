@@ -1,22 +1,32 @@
 const express = require('express');
-const User = require('../models/userModel');
-const { getToken, isAuth } = require('../util');
+const path = require("path");
+const moment = require('moment');
+const { getToken, isAuth, hashToken, compareToken, renderHtmlTemplate } = require('../util');
+const sendEmail = require("../mail/index");
+const db = require("../db");
 
 const router = express.Router();
 
-router.put('/:id', isAuth, async (req, res) => {
-  const userId = req.params.id;
-  const user = await User.findById(userId);
-  if (user) {
-    user.name = req.body.name || user.name;
-    user.email = req.body.email || user.email;
-    user.password = req.body.password || user.password;
-    const updatedUser = await user.save();
+router.put('/update', isAuth, async (req, res) => {
+  const email = req.body.email;
+  const [result, ] = await db.updateRecords("users", {
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    phoneNumber: req.body.phoneNumber,
+    updatedAt: moment().format("YYYY-MM-DD HH:mm:ss")
+  }, { email });
+
+  if (result.affectedRows) {
+    const [signinUser, ] = await db.selectRecords("SELECT * FROM users" + db.whereQuery({ email }));
+    
     res.send({
-      _id: updatedUser.id,
-      name: updatedUser.name,
-      email: updatedUser.email,
-      isAdmin: updatedUser.isAdmin,
+      accountType: signinUser.accountType,
+      firstName: signinUser.firstName,
+      lastName: signinUser.lastName,
+      email: signinUser.email,
+      phoneNumber: signinUser.phoneNumber,
+      isAdmin: signinUser.isAdmin,
+      emailVerified: signinUser.emailVerified,
       token: getToken(updatedUser),
     });
   } else {
@@ -25,16 +35,20 @@ router.put('/:id', isAuth, async (req, res) => {
 });
 
 router.post('/signin', async (req, res) => {
-  const signinUser = await User.findOne({
-    email: req.body.email,
-    password: req.body.password,
-  });
-  if (signinUser) {
+  let query = `SELECT * FROM users ` + db.whereQuery({ email: req.body.email });
+  const result = await db.selectRecords(query);
+
+  if (result.length && compareToken(req.body.password, result[0].password) ) {
+    const signinUser = result[0];
+
     res.send({
-      _id: signinUser.id,
-      name: signinUser.name,
+      accountType: signinUser.accountType,
+      firstName: signinUser.firstName,
+      lastName: signinUser.lastName,
       email: signinUser.email,
+      phoneNumber: signinUser.phoneNumber,
       isAdmin: signinUser.isAdmin,
+      emailVerified: signinUser.emailVerified,
       token: getToken(signinUser),
     });
   } else {
@@ -42,38 +56,98 @@ router.post('/signin', async (req, res) => {
   }
 });
 
+router.get('/testEmail', async (req, res) => {
+  let emailData = {
+    to: "stardev0824@gmail.com",
+    subject: "Welcome to Musical World",
+    text: "test test"
+  };
+  let result = sendEmail(emailData);
+  
+  console.log(result)
+  res.send(result);
+})
 router.post('/register', async (req, res) => {
-  const user = new User({
-    name: req.body.name,
-    email: req.body.email,
-    password: req.body.password,
-  });
-  const newUser = await user.save();
-  if (newUser) {
-    res.send({
-      _id: newUser.id,
-      name: newUser.name,
-      email: newUser.email,
-      isAdmin: newUser.isAdmin,
-      token: getToken(newUser),
-    });
-  } else {
-    res.status(401).send({ message: 'Invalid User Data.' });
+  try {
+    const user = {
+      accountType: req.body.accountType,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      phoneNumber: req.body.phoneNumber,
+      password: hashToken(req.body.password),
+      emailVerified: 0,
+      createdAt: moment().format("YYYY-MM-DD HH:mm:ss")
+    }
+    const [result, ] = await db.insertRecords("users", user);
+    console.log("register result", result)
+
+    if (result.affectedRows) {
+      user.id = result.insertId;
+
+      let emailData = {
+        to: user.email,
+        subject: "Welcome to Musical World",
+        html: renderHtmlTemplate("./mail/template/confirm_email.html", { id: user.id, token: hashToken(user.id + user.email)})
+      };
+      sendEmail(emailData);
+  
+      res.send({
+        registered: true,
+        accountType: user.accountType,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        phoneNumber: user.phoneNumber,
+        isAdmin: user.isAdmin,
+        emailVerified: false,
+        token: getToken(user)
+      });
+    } else {
+      res.status(401).send({ message: 'Invalid User Data.' });
+    }
+  } catch(e) {
+    console.log(e)
+    res.status(409).send({ message: e.sqlMessage });
   }
 });
 
-router.get('/createadmin', async (req, res) => {
+router.get("/:id/email/verify/:token(([^/]+/?)*)", async (req, res) => {
+  const token = req.params.token;
+  const userId = req.params.id;
+  console.log(token)
   try {
-    const user = new User({
-      name: 'Basir',
+    const user = await db.selectRecords("SELECT * FROM users" + db.whereQuery({id: userId}));
+    if(user.length && compareToken(user[0].id + user[0].email, token)) {
+      const [result, ] = await db.updateRecords("users", { emailVerified: 1 }, {id: user[0].id});
+
+      res.setHeader("Content-Security-Policy", "script-src 'nonce-abf4dd'")
+      res.sendFile(path.join(__dirname, "../mail/template/verified.html"));
+    }
+    else {
+      res.send({status: false, message: "Wrong user or token!"});
+    }
+  } catch (e) {
+    res.send({status: false, message: "Email verfication failed!"});
+  }
+})
+
+router.get('/createAdmin', async (req, res) => {
+  try {
+    const result = await db.insertRecords("users", {
+      accountType: 3,
+      firstName: "admin",
+      lastName: "super",
       email: 'admin@example.com',
-      password: '123456',
-      isAdmin: true,
+      password: hashToken('123456'),
+      emailVerified: 1,
+      isAdmin: 1,
+      createdAt: moment().format("YYYY-MM-DD HH:mm:ss")
     });
-    const newUser = await user.save();
-    res.send(newUser);
+    res.send({ status: true, message: "successfully created"});
   } catch (error) {
-    res.send({ message: error.message });
+    console.log(error)
+    res.send({ status: false, message: error.sqlMessage });
   }
 });
 
