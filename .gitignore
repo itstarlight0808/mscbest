@@ -5,6 +5,7 @@ dist
 /dist
 node_modules
 /node_modules
+node_modules.zip
 uploads/*.jpg
 uploads/*.png
 
