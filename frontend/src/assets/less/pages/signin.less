@@ -1,34 +1,51 @@
 .signin-container {
-    padding: 200px 165px 175px;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    padding: 140px 0 0 20px;
 
-    .title {
-        font-family: 'Montserrat';
-        font-weight: 500;
-        font-size: 30px;
-        color: #000000;
+    @media (max-width: @screen-sm) {
+        width: 100%;
+        padding: 100px 12px;
     }
 
-    .description {
-        margin-top: 10px;
-        font-family: 'Montserrat';
-        font-weight: 400;
-        font-size: 17.5px;
-        color: #8692A6;
-    }
+    form {
+        max-width: 418px;
 
-    .form-container {
-        margin-top: 38px;
-
-        > .siginin-footer {
-            font-family: 'Inter';
+        .title {
+            font-family: 'Montserrat';
             font-weight: 500;
-            font-size: 15px;
-            color: #696F79;
+            font-size: 30px;
+            color: #000000;
+            text-align: left;
 
-            a {
+            @media (max-width: @screen-sm) {
+                text-align: center;
+            }
+        }
+    
+        .description {
+            margin-top: 10px;
+            font-family: 'Montserrat';
+            font-weight: 400;
+            font-size: 17.5px;
+            color: #8692A6;
+        }
+    
+        .form-container {
+            margin-top: 38px;
+    
+            > .siginin-footer {
                 font-family: 'Inter';
                 font-weight: 500;
                 font-size: 15px;
+                color: #696F79;
+    
+                a {
+                    font-family: 'Inter';
+                    font-weight: 500;
+                    font-size: 15px;
+                }
             }
         }
     }

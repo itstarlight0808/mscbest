@@ -3,7 +3,8 @@ import Cookie from "js-cookie";
 import { COOKIE_KEY } from "../config/index";
 
 const httpClient = Axios.create({
-    baseURL: "http://127.0.0.1:5000/api",
+    baseURL: "http://localhost:5000/api",
+    // baseURL: "https://musicalbest.com/api",
 });
 
 httpClient.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';

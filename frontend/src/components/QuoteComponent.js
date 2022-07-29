@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 
-import StartDoubleQuote from "../assets/images/components/quote/start-double-quote.svg";
-import EndDoubleQuote from "../assets/images/components/quote/end-double-quote.svg";
+import StartDoubleQuote from "../assets/images/home/start-double-quote.svg";
+import EndDoubleQuote from "../assets/images/home/end-double-quote.svg";
 
 const Quote = props => {
     return (

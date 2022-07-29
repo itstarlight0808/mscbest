@@ -68,6 +68,15 @@
                                 font-size: 14px;
                             }
                         }
+
+                        &.logged-in-group {
+                            width: auto;
+                            margin-left: 40px;
+
+                            svg {
+                                color: @white-color;
+                            }
+                        }
                     }
                 }
             }
@@ -75,7 +84,7 @@
     }
 }
 main.main {
-    min-height: 90vh;
+    min-height: @main-content-height;
 
     .container {
         width: auto;

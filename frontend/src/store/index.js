@@ -1,31 +1,24 @@
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
+import { configureStore } from "@reduxjs/toolkit";
 import Cookie from 'js-cookie';
 import { COOKIE_KEY } from "../config/index";
 
-import {
-  userSigninReducer,
-  userRegisterReducer,
-  userUpdateReducer,
-} from './reducers/userReducers';
-import eventReducer from "./reducers/eventReducers";
+import userReducer from "./slices/userSlice";
+import errorReducer from "./slices/errorSlice";
 
 
 const userInfo = Cookie.getJSON(COOKIE_KEY.USER_INFO) || null;
-
+console.log("Cookie Info", userInfo);
 const initialState = {
-  userSignin: { userInfo },
+  user: { userInfo, loading: false },
 };
-const reducer = combineReducers({
-  userSignin: userSigninReducer,
-  userRegister: userRegisterReducer,
-  userUpdate: userUpdateReducer,
-  userEvent: eventReducer
-});
-const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(
-  reducer,
-  initialState,
-  composeEnhancer(applyMiddleware(thunk))
+const store = configureStore(
+  {
+    reducer: {
+      user: userReducer,
+      error: errorReducer,
+    },
+    preloadedState: initialState
+  }
 );
+
 export default store;

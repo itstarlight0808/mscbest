@@ -9,6 +9,7 @@ import { fab } from "@fortawesome/free-brands-svg-icons";
 
 import './index.less';
 import "bootstrap/dist/js/bootstrap.min";
+import 'react-phone-number-input/style.css'
 import App from './App';
 import store from './store/index';
 

@@ -22,7 +22,7 @@ module.exports = {
                 loader: 'babel-loader'
             },
             {
-                test: /\.less$/,
+                test: /\.less|css$/,
                 use: [
                     { loader: "style-loader" },
                     { loader: "css-loader" },
@@ -48,7 +48,7 @@ module.exports = {
             publicPath: '/'
         }),
         new InterpolateHtmlPlugin({
-            PUBLIC_URL: '/'
+            PUBLIC_URL: ''
         })
     ],
     devServer: {

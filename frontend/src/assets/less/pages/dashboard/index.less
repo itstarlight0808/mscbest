@@ -1,0 +1,36 @@
+@import "./sidebar.less";
+@import "./home.less";
+
+.dashboard-container {
+    display: flex;
+    padding: 8px 0;
+
+    .toggle-sidebar {
+        background: @purple-color;
+        padding: 5px;
+        border-bottom-right-radius: 4px;
+        color: @white-color;
+        cursor: pointer;
+    }
+
+    .custom-breadcrumb {
+        display: flex;
+        align-items: center;
+        margin-bottom: 12px;
+        padding: 10px 30px;
+        background: linear-gradient(0deg, rgb(86 12 169 / 20%), rgb(95 38 158)), @white-color;
+        border-radius: 9px;
+        font-size: 14px;
+        font-weight: 800;
+        color: @white-color;
+
+        img, svg {
+            filter: drop-shadow(2px 4px 6px black);
+        }
+
+        svg {
+            width: 20px;
+            height: 20px;
+        }
+    }
+}

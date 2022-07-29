@@ -1,0 +1,110 @@
+.sidebar {
+    width: 0;
+    background: @purple-color;
+    overflow: hidden;
+    transition: width .3s;
+
+    &.open {
+        width: 200px;
+    }
+
+    .avatar-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 6px 0;
+
+        img {
+            width: 50px;
+            height: 50px;
+        }
+
+        svg {
+            width: 50px;
+            height: 50px;
+            color: @white-color;
+            padding: 8px;
+            border-radius: 50%;
+            border: 2px solid @white-color;
+        }
+
+        > div {
+            h2 {
+                font-weight: 700;
+                font-size: 16px;
+                color: @white-color;
+            }
+
+            h3 {
+                font-weight: 200;
+                font-size: 11px;
+                line-height: 21px;
+
+                color: @white-color;
+            }
+        }
+    }
+
+    .menu-item {
+        color: @white-color;
+        padding: 0 0 0 16px;
+
+        &.active {
+            border: 1px solid @white-color;
+        }
+
+        img {
+            width: 16px;
+        }
+        
+        a {
+            width: 100%;
+            padding: 8px 0;
+            font-weight: 200;
+            font-size: 15px;
+            color: @white-color;
+            text-decoration: none;
+        }
+    }
+
+    .divider {
+        height: 2px;
+        background: @white-color;
+        margin: 0 0 1rem;
+    }
+
+    .menu-accordion {
+        .accordion-item {
+            background: transparent;
+            border: none;
+
+            .accordion-header {
+                button {
+                    background: transparent;
+                    color: @white-color;
+                    font-weight: 200;
+                    font-size: 15px;
+                    padding: 0px 16px 8px;
+
+                    &:focus, &:active {
+                        box-shadow: none;
+                    }
+
+                    &::after {
+                        filter: invert(1);
+                    }
+
+                    svg {
+                        width: 16px;
+                        height: 16px;
+                    }
+                }
+            }
+            .accordion-collapase {
+                .accordion-body {
+                    padding: 0 12px;
+                }
+            }
+        }
+    }
+}

@@ -101,7 +101,7 @@ const About = props => {
                                     <p className="description">
                                         {one.description}
                                     </p>
-                                    <div class="ctrl-container">
+                                    <div className="ctrl-container">
                                         <span>MORE INFO</span><img src={SlideWhiteIcon} alt="pointer icon" />
                                     </div>
                                 </div>

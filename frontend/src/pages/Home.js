@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchEventList, followEvent, unfollowEvent } from "../store/actions/eventActions";
 import Flickity from "react-flickity-component";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -21,12 +20,13 @@ const style = `
   }
 `;
 const Home = props => {
-
-  const userSignin = useSelector(state => state.userSignin);
-  const {userInfo} = userSignin;
   const dispatch = useDispatch();
+
+  const {userInfo} = useSelector(state => state.user);
+  console.log(userInfo)
+
   useEffect(() => {
-    dispatch(fetchEventList());
+    // dispatch(fetchEventList());
   }, [dispatch]);
 
   const FlickityOption = {
