@@ -1,9 +1,14 @@
-const jwt = require('jsonwebtoken');
 const config = require('./config');
+const jwt = require('jsonwebtoken');
+const fs = require('fs');
+const path = require("path");
+const handlebars = require("handlebars");
+const bcrypt = require("bcryptjs");
+
 const getToken = (user) => {
   return jwt.sign(
     {
-      _id: user._id,
+      id: user.id,
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
@@ -41,4 +46,22 @@ const isAdmin = (req, res, next) => {
   return res.status(401).send({ message: 'Admin Token is not valid.' });
 };
 
-module.exports = { getToken, isAuth, isAdmin };
+const hashToken = str => {
+  return bcrypt.hashSync(str, config.bcryptSalt);
+}
+const compareToken = (str, hash) => {
+  return bcrypt.compareSync(str, hash);
+}
+
+const renderHtmlTemplate = (filepath, params) => {
+  filepath = path.join(__dirname, filepath);
+  const source = fs.readFileSync(filepath, "utf-8").toString();
+  const template = handlebars.compile(source);
+  
+  console.log(params)
+  console.log(template(params))
+
+  return template(params);
+}
+
+module.exports = { getToken, isAuth, isAdmin, hashToken, compareToken, renderHtmlTemplate };
