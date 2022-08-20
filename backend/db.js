@@ -58,12 +58,11 @@ const makeInsertQuery = (table, params) => {
 }
 const insertRecords = async (table, params) => {
     let query = "";
-
     try {
-        if(typeof params === "object")
-            query = makeInsertQuery(table, [params]);
-        else
+        if(Array.isArray(params))
             query = makeInsertQuery(table, params);
+        else if(typeof params === "object")
+            query = makeInsertQuery(table, [params]);
 
         return await executeQuerySync(query);
     } catch(e) {
@@ -76,9 +75,24 @@ const updateRecords = async (table, params, where) => {
     let values = Object.keys(params).map(key => {
         return `${key}='${params[key]}'`;
     })
-    query += values.join(", ") + whereQuery(where);
+    query += values.join(", ");
+    if(typeof where === "object")
+        query += whereQuery(where);
+    else if(typeof where === "string")
+        query += " " + where;
 
     return await executeQuerySync(query);
 }
 
-module.exports = { executeQuerySync, executeQueryAsync, selectRecords, insertRecords, updateRecords, whereQuery };
+const deleteRecords = async (table, where) => {
+    let query = `DELETE FROM ${table} `;
+    
+    if(typeof where === "object")
+        query += whereQuery(where);
+    else if(typeof where === "string")
+        query += " " + where;
+
+    return await executeQuerySync(query);
+}
+
+module.exports = { executeQuerySync, executeQueryAsync, selectRecords, insertRecords, updateRecords, deleteRecords, whereQuery };

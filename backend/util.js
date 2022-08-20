@@ -4,6 +4,30 @@ const fs = require('fs');
 const path = require("path");
 const handlebars = require("handlebars");
 const bcrypt = require("bcryptjs");
+const multer = require("multer");
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+      cb(null, config.staticDir + "/uploads/tmp");
+  },
+  filename: (req, file, cb) => {
+      const fileName = file.originalname.toLowerCase().split(' ').join('-');
+      cb(null, Date.now() + '-' + fileName)
+  }
+});
+
+const upload = multer({
+  storage: storage,
+  fileFilter: (req, file, cb) => {
+    console.log("file upload middleware -->>")
+      if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+          cb(null, true);
+      } else {
+          cb(null, false);
+          return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+      }
+  }
+});
 
 const getToken = (user) => {
   return jwt.sign(
@@ -12,6 +36,7 @@ const getToken = (user) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
+      accountType: user.accountType
     },
     config.JWT_SECRET,
     {
@@ -64,4 +89,4 @@ const renderHtmlTemplate = (filepath, params) => {
   return template(params);
 }
 
-module.exports = { getToken, isAuth, isAdmin, hashToken, compareToken, renderHtmlTemplate };
+module.exports = { upload, getToken, isAuth, isAdmin, hashToken, compareToken, renderHtmlTemplate };
