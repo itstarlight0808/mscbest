@@ -12,6 +12,8 @@ router.get('/', isAuth,  async (req, res) => {
         let classList = await db.selectRecords(query);
         query = "SELECT * FROM class_groups";
         let classGroupList = await db.selectRecords(query);
+        query = "SELECT * FROM class_structure";
+        let classStructureList = await db.selectRecords(query);
 
         if(classList.length) {
             let tmpPos = {};
@@ -20,17 +22,26 @@ router.get('/', isAuth,  async (req, res) => {
                 let one = classList[i];
                 one.level = one.level.split(",");
                 one.groups = [];
+                one.structure = [];
                 tmpPos[one.id] = i;
             }
             for(i=0; i<classGroupList.length; i++) {
                 let one = classGroupList[i];
-                if(tmpPos[one.classId])
+                if(tmpPos[one.classId] !== undefined) {
                     classList[tmpPos[one.classId]].groups.push({name: one.name, price: one.price});
+                }
             }
+            for(i=0; i<classStructureList.length; i++) {
+                let one = classStructureList[i];
+                if(tmpPos[one.classId] !== undefined)
+                    classList[tmpPos[one.classId]].structure.push({name: one.name, description: one.description});
+            }
+            console.log(tmpPos)
         }
-
+        console.log(classList)
         res.send(classList);
     } catch(err) {
+        console.log(err)
         res.status(500).send("Error Occurs!");
     }
 })
@@ -42,7 +53,9 @@ router.post('/', isAuth, upload.single("banner"),  async (req, res) => {
         console.log(req.file)
         let params = JSON.parse(req.body.params);
         const groups = params.groups;
+        const structure = params.structure;
         delete params.groups;
+        delete params.structure;
         
         params = {...params, teacherId: req.user.id, createdAt: moment().format("YYYY-MM-DD HH:mm:ss")};
         if(req.file) {
@@ -56,13 +69,14 @@ router.post('/', isAuth, upload.single("banner"),  async (req, res) => {
         let [result, ] = await db.insertRecords("classes", params);
 
         if(result.affectedRows) {
-            if(groups.length) {
-                const classId = result.insertId;
-
-                groups.forEach(one => one.classId = classId);
-                console.log(groups);
+            const classId = result.insertId;
+            
+            groups.forEach(one => one.classId = classId);
+            structure.forEach(one => one.classId = classId);
+            if(groups.length)
                 [result, ] = await db.insertRecords("class_groups", groups);
-            }
+            if(structure.length)
+                [result, ] = await db.insertRecords("class_structure", structure);
             res.status(200).send();
         }
         else
@@ -80,7 +94,9 @@ router.put('/:id', isAuth, upload.single("banner"), async (req, res) => {
         const classId = req.params.id;
         let params = JSON.parse(req.body.params);
         const groups = params.groups;
+        const structure = params.structure;
         delete params.groups;
+        delete params.structure;
         
         params = {...params, teacherId: req.user.id, updatedAt: moment().format("YYYY-MM-DD HH:mm:ss")};
 
@@ -105,10 +121,14 @@ router.put('/:id', isAuth, upload.single("banner"), async (req, res) => {
 
         if(result.affectedRows) {
             await db.deleteRecords("class_groups", {classId});
+            await db.deleteRecords("class_structure", {classId});
             groups.forEach(one => one.classId = classId);
+            structure.forEach(one => one.classId = classId);
 
             if(groups.length)
                 [result, ] = await db.insertRecords("class_groups", groups);
+            if(structure.length)
+                [result, ] = await db.insertRecords("class_structure", structure);
             res.status(200).send();
         }
         else
@@ -131,6 +151,7 @@ router.post('/delete', isAuth, async (req, res) => {
         }
 
         await db.deleteRecords("class_groups", ` WHERE classId IN (${ classIds.join(", ") })`);
+        await db.deleteRecords("class_structure", ` WHERE classId IN (${ classIds.join(", ") })`);
         let [result, ] = await db.deleteRecords("classes", ` WHERE id IN (${classIds.join(", ")})`);
         
         if(result.affectedRows)
