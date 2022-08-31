@@ -1,0 +1,63 @@
+.error-container {
+    position: fixed;
+    top: 74px;
+    right: 12px;
+
+    .error-item {
+        width: 250px;
+        padding: 8px;
+        display: flex;
+        align-items: center;
+        background: @white-color;
+        gap: 8px;
+        box-shadow: #000 0px 1px 7px 0px;
+
+        &.success {
+            border-left: 8px solid #017201;
+
+            .prefix-icon {
+                color: #017201;
+            }
+        }
+
+        &.error {
+            border-left: 8px solid #db0000;
+
+            .prefix-icon {
+                color: #db0000;
+            }
+        }
+        
+        .prefix-icon {
+            width: 28px;
+            height: 28px;
+        }
+        
+        .content {
+            flex-grow: 1;
+
+            .header {
+                display: flex;
+    
+                h3 {
+                    font-size: 14px;
+                }
+    
+                svg {
+                    margin-left: auto;
+                    cursor: pointer;
+                }
+            }
+            
+            .body {
+                margin-top: 4px;
+                font-size: 12px;
+            }
+        }
+
+
+        & + .error-item {
+            margin-top: 12px;
+        }
+    }
+}
