@@ -14,6 +14,8 @@ router.get('/', isAuth,  async (req, res) => {
         let classGroupList = await db.selectRecords(query);
         query = "SELECT * FROM class_structure";
         let classStructureList = await db.selectRecords(query);
+        query = "SELECT * FROM class_schedule";
+        let classScheduleList = await db.selectRecords(query);
 
         if(classList.length) {
             let tmpPos = {};
@@ -23,6 +25,7 @@ router.get('/', isAuth,  async (req, res) => {
                 one.level = one.level.split(",");
                 one.groups = [];
                 one.structure = [];
+                one.schedule = [];
                 tmpPos[one.id] = i;
             }
             for(i=0; i<classGroupList.length; i++) {
@@ -36,12 +39,15 @@ router.get('/', isAuth,  async (req, res) => {
                 if(tmpPos[one.classId] !== undefined)
                     classList[tmpPos[one.classId]].structure.push({name: one.name, description: one.description});
             }
-            console.log(tmpPos)
+            for(i=0; i<classScheduleList.length; i++) {
+                let one = classScheduleList[i];
+                if(tmpPos[one.classId] !== undefined)
+                    classList[tmpPos[one.classId]].schedule.push({id: one.id, startDate: one.startDate});
+            }
         }
-        console.log(classList)
         res.send(classList);
     } catch(err) {
-        console.log(err)
+        console.log(err);
         res.status(500).send("Error Occurs!");
     }
 })
@@ -49,8 +55,6 @@ router.get('/', isAuth,  async (req, res) => {
 router.post('/', isAuth, upload.single("banner"),  async (req, res) => {
     try {
         console.log("****add class*****");
-        console.log(req.body.params)
-        console.log(req.file)
         let params = JSON.parse(req.body.params);
         const groups = params.groups;
         const structure = params.structure;
@@ -89,8 +93,6 @@ router.post('/', isAuth, upload.single("banner"),  async (req, res) => {
 router.put('/:id', isAuth, upload.single("banner"), async (req, res) => {
     try {
         console.log("update >>>>>>")
-        console.log(req.params)
-        console.log(req.body);
         const classId = req.params.id;
         let params = JSON.parse(req.body.params);
         const groups = params.groups;
@@ -117,7 +119,6 @@ router.put('/:id', isAuth, upload.single("banner"), async (req, res) => {
         }
         
         let [result, ] = await db.updateRecords("classes", params, {id: classId});
-        console.log("here...")
 
         if(result.affectedRows) {
             await db.deleteRecords("class_groups", {classId});
@@ -153,6 +154,38 @@ router.post('/delete', isAuth, async (req, res) => {
         await db.deleteRecords("class_groups", ` WHERE classId IN (${ classIds.join(", ") })`);
         await db.deleteRecords("class_structure", ` WHERE classId IN (${ classIds.join(", ") })`);
         let [result, ] = await db.deleteRecords("classes", ` WHERE id IN (${classIds.join(", ")})`);
+        
+        if(result.affectedRows)
+            res.status(200).send();
+        else
+            res.status(500).send("Internal Server error occurs!")
+    } catch(err) {
+        res.status(500).send("Error Occurs!");
+    }
+})
+
+router.post("/schedule/add", isAuth, async (req, res) => {
+    try {
+        console.log("add schedule....")
+        const { classId, startDate } = req.body;
+        console.log(req.body);
+        
+        let [result, ] = await db.insertRecords("class_schedule", { classId, startDate });
+        
+        if(result.affectedRows)
+            res.status(200).send({id: result.insertId, classId, startDate});
+        else
+            res.status(500).send("Internal Server error occurs!")
+    } catch(err) {
+        res.status(500).send("Error Occurs!");
+    }
+})
+
+router.delete("/schedule/delete/:id", isAuth, async (req, res) => {
+    try {
+        const { id } = req.params;
+        
+        let [result, ] = await db.deleteRecords("class_schedule", { id })
         
         if(result.affectedRows)
             res.status(200).send();
