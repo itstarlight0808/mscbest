@@ -59,7 +59,8 @@ function Register(props) {
   const submitHandler = (e) => {
     e.preventDefault();
     if(password !== rePassword) {
-      dispatch(addNewError({ 
+      dispatch(addNewError({
+        status: false,
         title: "SignUp",
         msg: "Password Error! Try again!" 
       }))

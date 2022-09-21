@@ -1,14 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers"
 import DateFnsUtils from "@date-io/date-fns"
 import { enUS } from "date-fns/locale"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import moment from "moment";
 
-import { days } from "../../utils/date";
+import httpClient from "../../../utils/http-client";
 
 const Home = props => {
-    let [date, setDate] = useState(new Date());
+    let [date, setDate] = useState(moment());
+    const [upcomingClassesCnt, setUpcomingClassesCnt] = useState(0);
+    const [agendaList, setAgendaList] = useState([]);
+
+    useEffect(() => {
+        httpClient.get("/classes/getUpcomingClassesCntByMonth").then(res => {
+            setUpcomingClassesCnt(res.data.count);
+            console.log(res.data)
+        })
+    }, [])
+
+    useEffect(() => {
+        let tmpDate = moment(date);
+        const year = tmpDate.format("YYYY");
+        const month = tmpDate.format("M");
+        const day = tmpDate.format("D");
+
+        httpClient.get(`/classes/getBookedClasses/${year}/${month}/${day}`).then(res => {
+            setAgendaList(res.data);
+        })
+    }, [date])
     return (
         <div className="d-home-container">
             <div className="d-home-content">
@@ -45,19 +65,20 @@ const Home = props => {
                             <h3>20:00 to 21:00 - Class: Meisner with Music</h3>
                             <p>Student: Ann-Kathrin Veit</p>
                         </div>
+                        {
+                            agendaList.map((one, index) => {
+                                let startDate = moment(one.startDate).format("LL");
+                                return (
+                                    <div key={`agenda-item_${index}`} className="agenda-item">
+                                        <h3>{ startDate } - Class: { one.name }</h3>
+                                    </div>      
+                                )
+                            })
+                        }
                     </div>
                 </div>
             </div>
             <div className="status-list">
-                <div className="status-item">
-                    <div className="header">
-                        <FontAwesomeIcon icon="fas fa-user-tie" />
-                        <h3>ACTIVE STUDENTS</h3>
-                    </div>
-                    <div className="body">
-                        <span>30</span>
-                    </div>
-                </div>
                 <div className="status-item">
                     <div className="header">
                         <FontAwesomeIcon icon="fas fa-bell" />
@@ -70,28 +91,10 @@ const Home = props => {
                 <div className="status-item">
                     <div className="header">
                         <FontAwesomeIcon icon="fas fa-calendar-days" />
-                        <h3>LESSON LEFT THIS WEEK</h3>
+                        <h3>UPCOMING LESSIONS THIS MONTH</h3>
                     </div>
                     <div className="body">
-                        <span>30</span>
-                    </div>
-                </div>
-                <div className="status-item">
-                    <div className="header">
-                        <FontAwesomeIcon icon="fas fa-square-poll-vertical" />
-                        <h3>MONTHLY INCOME (PROJECTED)</h3>
-                    </div>
-                    <div className="body">
-                        <span>600€</span>
-                    </div>
-                </div>
-                <div className="status-item">
-                    <div className="header">
-                        <FontAwesomeIcon icon="fas fa-check-square" />
-                        <h3>PAYMENT RECEIVED THIS MONTH</h3>
-                    </div>
-                    <div className="body">
-                        <span>300€</span>
+                        <span>{ upcomingClassesCnt }</span>
                     </div>
                 </div>
             </div>

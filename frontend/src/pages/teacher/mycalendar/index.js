@@ -1,195 +1,149 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useContext, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { confirmAlert } from "react-confirm-alert";
-import TableView from "../../../components/TableView";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import moment from "moment";
+import DateFnsUtils from "@date-io/date-fns";
+import { enUS } from "date-fns/locale";
 
-import httpClient from "../../../utils/http-client";
-import { classType, classLevel } from "../../../utils/common";
-import { RootContext } from "../../../App";
-import { addNewError } from "../../../store/slices/errorSlice";
+import ScheduleClassForm from "./ScheduleClassForm";
+import DailyView from "./DailyView";
+import WeeklyView from "./WeeklyView";
+import MonthlyView from "./MonthlyView";
+import { getClassListAPI } from "../../../store/slices/classSlice";
 
 const MyCalendar = props => {
-    const rootContext = useContext(RootContext);
     const dispatch = useDispatch();
+    const { userInfo } = useSelector(state => state.user);
     
     const [mode, setMode] = useState("view");
-    const [selected, setSelected] = useState(rootContext.context.table? rootContext.context.table.selected: []);
-    const [classList, setClassList] = useState([]);
-    const [columns, setColumns] = useState([
-        {
-            label: "id",
-            name: "id",
-            hidden: true
-        },
-        {
-            label: "Name",
-            name: "name"
-        },
-        {
-            label: "Type",
-            name: "type"
-        },
-        {
-            label: "Short Description",
-            name: "shortDescription",
-        },
-        {
-            label: "Video Link1",
-            name: "videolink1"
-        },
-        {
-            label: "Video Link2",
-            name: "videolink2"
-        },
-        {
-            label: "Level",
-            name: "level"
-        },
-        {
-            label: "",
-            name: "detail"
-        }
-    ])
-
-    const detailClassEvent = classId => {
-        setSelected([classId]);
-        setMode("edit");
-    }
-
-    const processedClassList = () => {
-        let tmp = classList.map((one, index) => {
-            let newOne = {...one};
-            newOne.type = classType[newOne.type];
-            newOne.level = newOne.level.map(lv => classLevel[lv]).join(", ");
-
-            newOne.detail = <FontAwesomeIcon icon="far fa-file-lines" className="detail-view" onClick={() => detailClassEvent(one.id)}/>;
-            return newOne;
-        })
-
-        return tmp;
-    }
-
-    const getClassById = classId => {
-        return classList.find(one => one.id === classId);
-    }
-
-    const fetchClassList = () => {
-        httpClient.get("/classes/").then(res => {
-            let data = res.data;
-            
-            setClassList(data);
-            console.log(data)
-        })
-    }
+    const [calendarView, setCalendarView] = useState("month");
+    const [selectedDate, setSelectedDate] = useState(moment());
+    console.log("*******", selectedDate)
 
     useEffect(() => {
-        fetchClassList();
+        dispatch(getClassListAPI);
     }, [])
-    
-    const editClassEvent = () => {
-        if(!rootContext.context.table || (rootContext.context.table && !rootContext.context.table.selected.length)) {
-            dispatch(addNewError({
-                status: false,
-                title: "Warning",
-                msg: "No Selected Rows!"
-            }));
-            return;
-        }
-        if(rootContext.context.table.selected.length > 1) {
-            dispatch(addNewError({
-                status: false,
-                title: "Warning",
-                msg: "Select only one row to edit!"
-            }));
-            return;
-        }
-        setSelected(rootContext.context.table.selected);
-        setMode("edit");
+    const prevDate = () => {
+        if(calendarView === "month")
+            setSelectedDate(moment(selectedDate).subtract(1, "months"));
+        else if(calendarView === "week")
+            setSelectedDate(moment(selectedDate).subtract(1, "weeks"));
+        else
+            setSelectedDate(moment(selectedDate).subtract(1, "days"))
     }
-    const deleteClassEvent = () => {
-        let selected = rootContext.context?.table?.selected ?? [];
+    const nextDate = () => {
+        console.log(calendarView)
+        if(calendarView === "month")
+            setSelectedDate(moment(selectedDate).add(1, "months"))
+        else if(calendarView === "week")
+            setSelectedDate(moment(selectedDate).add(1, "weeks"))
+        else
+            setSelectedDate(moment(selectedDate).add(1, "days"))
+    }
 
-        if(!selected.length) {
-            dispatch(addNewError({
-                status: false,
-                title: "Warning",
-                msg: "No Selected Rows!"
-            }));
-            return;
-        }
-        confirmAlert({
-            title: "Confirm to delete",
-            message: "Are you sure to delete?",
-            buttons: [
-                {
-                    label: "Yes",
-                    onClick: () => {
-                        httpClient.post("/classes/delete", {ids: selected}).then(res => {
-                            if(res.status === 200)
-                                fetchClassList();
-                        }, err => {
-                            dispatch(addNewError({
-                                status: false,
-                                title: "Error",
-                                msg: "Error Occurs!"
-                            }));
-                        })
-                    }
-                },
-                {
-                    label: "No",
-                    onClick: () => {
-                        console.log("delete confirm was cancelled..")
-                    }
-                }
-            ]
-        })
-    }
     return (
-        <div>
+        <div className="c-calendar-container">
             { mode === "view" && 
                 <>
                     <div className="d-flex mb-2">
-                        <button
-                            className="btn-ctrl btn-ctrl-purple"
-                            onClick={() => setMode("add")}
-                        >
-                            <FontAwesomeIcon icon="fas fa-plus" />New Event
-                        </button>
+                        { (userInfo.accountType === 1 || userInfo.isAdmin === true) &&
+                            <>
+                                <button
+                                    className="btn-ctrl btn-ctrl-purple"
+                                    onClick={() => setMode("schedule_class")}
+                                >
+                                    <FontAwesomeIcon icon="far fa-square-plus" />New Event
+                                </button>
+                                <button
+                                    className="btn-ctrl btn-ctrl-purple mx-2"
+                                    onClick={() => editClassEvent()}
+                                >
+                                    <FontAwesomeIcon icon="far fa-rectangle-list" />Categories
+                                </button>
+                                <button
+                                    className="btn-ctrl btn-ctrl-purple mx-2"
+                                    onClick={() => editClassEvent()}
+                                >
+                                    <FontAwesomeIcon icon="fas fa-wrench" />Options
+                                </button>
+                                <button
+                                    className="btn-ctrl btn-ctrl-purple mx-2"
+                                    onClick={() => editClassEvent()}
+                                >
+                                    <FontAwesomeIcon icon="fas fa-print" />Print
+                                </button>
+                            </>
+                        }
                         <button
                             className="btn-ctrl btn-ctrl-purple mx-2"
-                            onClick={() => editClassEvent()}
+                            onClick={() => {}}
                         >
-                            <FontAwesomeIcon icon="fas fa-pen-to-square" />Categories
+                            <FontAwesomeIcon icon="fas fa-filter" />Filter
                         </button>
                         <button
-                            className="btn-ctrl btn-ctrl-purple mx-2"
-                            onClick={() => editClassEvent()}
+                            className="btn-ctrl btn-sync mx-2"
+                            onClick={() => {}}
                         >
-                            <FontAwesomeIcon icon="fas fa-pen-to-square" />Options
+                            <FontAwesomeIcon icon="fas fa-arrows-rotate" />Sync
                         </button>
-                        <button
-                            className="btn-ctrl btn-ctrl-purple mx-2"
-                            onClick={() => editClassEvent()}
-                        >
-                            <FontAwesomeIcon icon="fas fa-pen-to-square" />Print
-                        </button>
-                        <button
-                            className="btn-ctrl btn-ctrl-purple mx-2"
-                            onClick={() => editClassEvent()}
-                        >
-                            <FontAwesomeIcon icon="fas fa-pen-to-square" />Filter
-                        </button>
-                        
                     </div>
-                    <TableView columns={columns} rowData={processedClassList()} />
+                    <div className="calendar-view-container">
+                        <div className="sel-date">
+                            <h3>
+                                { calendarView === "day" && selectedDate.format("DD") + "th " }
+                                { selectedDate.format("MMMM YYYY") }
+                            </h3>
+                            <MuiPickersUtilsProvider utils={DateFnsUtils} locale={enUS}>
+                                <KeyboardDatePicker
+                                    margin="normal"
+                                    format="MM/dd/yyyy"
+                                    className="datepicker"
+                                    value={selectedDate}
+                                    onChange={e => setSelectedDate(moment(e))}
+                                    KeyboardButtonProps={{
+                                        'aria-label': 'change date',
+                                    }}
+                                />
+                            </MuiPickersUtilsProvider>
+                        </div>
+                        <div className="calendar-view">
+                            <button className="btn btn-purple" onClick={() => prevDate()}>
+                                <FontAwesomeIcon icon="fas fa-chevron-left" />
+                            </button>
+                            <div className="view-tabs">
+                                <button className={`btn-ctrl btn-cal-view ${calendarView === "day"? "active": ""}`} onClick={() => setCalendarView("day")}>
+                                    Day
+                                </button>
+                                <button className={`btn-ctrl btn-cal-view ${calendarView === "week"? "active": ""}`} onClick={() => setCalendarView("week")}>
+                                    Week
+                                </button>
+                                <button className={`btn-ctrl btn-cal-view ${calendarView === "month"? "active": ""}`} onClick={() => setCalendarView("month")}>
+                                    Month
+                                </button>
+                            </div>
+                            <button className="btn btn-purple" onClick={() => nextDate()}>
+                                <FontAwesomeIcon icon="fas fa-chevron-right" />
+                            </button>
+                        </div>
+                    </div>
+                    <div>
+                        { calendarView === "day" && 
+                            <DailyView selectedDate={selectedDate} />
+                        }
+                        { calendarView === "week" && 
+                            <WeeklyView selectedDate={selectedDate} />
+                        }
+                        { calendarView === "month" && 
+                            <MonthlyView selectedDate={selectedDate} setSelectedDate={setSelectedDate} setCalendarView={setCalendarView} />
+                        }
+                    </div>
                 </>    
             }
-            {/* { mode === "add" && 
-                <ClassForm mode={mode} setMode={setMode} fetchClassList={fetchClassList} />
+            { mode === "schedule_class" && 
+                <ScheduleClassForm setMode={setMode} />
             }
-            { mode === "edit" && 
+            {/* { mode === "edit" && 
                 <ClassForm mode={mode} setMode={setMode} selected={getClassById(selected[0])} fetchClassList={fetchClassList} />
             } */}
         </div>

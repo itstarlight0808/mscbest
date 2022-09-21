@@ -9,9 +9,7 @@ import moment from "moment";
 
 import { omitStringByWords, classType } from "../../../utils/common";
 import { CONFIG } from "../../../config/index";
-import httpClient from "../../../utils/http-client";
-import { addNewError } from "../../../store/slices/errorSlice";
-import { addClassSchedule, deleteClassSchedule } from "../../../store/slices/classSlice";
+import { addClassScheduleAPI, deleteClassScheduleAPI } from "../../../store/slices/classSlice";
 
 import NoImage from "../../../assets/images/no_image1x1.png";
 
@@ -34,33 +32,11 @@ const ScheduleClassForm = props => {
     const [selected, setSelected] = useState(null);
 
     const deleteSchedule = scheduleId => {
-        httpClient.delete(`/classes/schedule/delete/${scheduleId}`).then(res => {
-            if(res.status === 200) {
-                dispatch(deleteClassSchedule({ selected, scheduleId }));
-            }
-        }, error => {
-            dispatch(addNewError({
-                status: false,
-                title: "Deleting Schedule",
-                msg: "Deleting Schedule Error!"
-            }))
-        })
+        dispatch(deleteClassScheduleAPI({ selected, scheduleId }));
     }
     const [isOpen, setIsOpen] = useState(false);
     const addScheduleEvent = () => {
-        console.log(selectedDate);
-        let date = moment(selectedDate).format("YYYY-MM-DD HH:mm:ss A");
-        httpClient.post("/classes/schedule/add", { classId: classList[selected].id, startDate: date }).then(res => {
-            if(res.status === 200) {
-                dispatch(addClassSchedule({ selected, schedule: {...res.data, startDate: selectedDate.utc().format()} }))
-            }
-        }, error => {
-            dispatch(addNewError({
-                status: false,
-                title: "Adding Schedule",
-                msg: "Adding Schedule Error!"
-            }));
-        })
+        dispatch(addClassScheduleAPI({ classId: classList[selected].id, startDate: selectedDate }));
     }
     const [selectedDate, setSelectedDate] = useState(moment());
 

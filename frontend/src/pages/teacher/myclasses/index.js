@@ -1,22 +1,25 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useContext, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { confirmAlert } from "react-confirm-alert";
 import TableView from "../../../components/TableView";
 import ClassForm from "./ClassForm";
+import ClassCardView from "../../../components/ClassCardView";
 
 import httpClient from "../../../utils/http-client";
 import { classType, classLevel } from "../../../utils/common";
 import { RootContext } from "../../../App";
+import { getClassListAPI, setClassList } from "../../../store/slices/classSlice";
 import { addNewError } from "../../../store/slices/errorSlice";
 
 const MyClasses = props => {
     const rootContext = useContext(RootContext);
     const dispatch = useDispatch();
+
+    const { classList } = useSelector(state => state.classes);
     
     const [mode, setMode] = useState("view");
-    const [selected, setSelected] = useState(rootContext.context.table? rootContext.context.table.selected: []);
-    const [classList, setClassList] = useState([]);
+    const [selected, setSelected] = useState(rootContext.context["class"]? rootContext.context["class"].selected: []);
     const [columns, setColumns] = useState([
         {
             label: "id",
@@ -52,16 +55,27 @@ const MyClasses = props => {
             name: "detail"
         }
     ])
+    const [participantsColumns, setParticipantsColumns] = useState([
+        {
+            label: "studentId",
+            name: "studentId",
+            hidden: true
+        },
+        {
+            label: "name",
+            label: "name"
+        }
+    ])
 
     const detailClassEvent = classId => {
         setSelected([classId]);
-        setMode("edit");
+        setMode("detail");
     }
 
     const processedClassList = () => {
         let tmp = classList.map((one, index) => {
             let newOne = {...one};
-            newOne.type = classType[newOne.type];
+            newOne.type = classType[newOne.type].name;
             newOne.level = newOne.level.map(lv => classLevel[lv]).join(", ");
 
             newOne.detail = <FontAwesomeIcon icon="far fa-file-lines" className="detail-view" onClick={() => detailClassEvent(one.id)}/>;
@@ -76,12 +90,7 @@ const MyClasses = props => {
     }
 
     const fetchClassList = () => {
-        httpClient.get("/classes/").then(res => {
-            let data = res.data;
-            
-            setClassList(data);
-            console.log(data)
-        })
+        dispatch(getClassListAPI);
     }
 
     useEffect(() => {
@@ -89,7 +98,7 @@ const MyClasses = props => {
     }, [])
     
     const editClassEvent = () => {
-        if(!rootContext.context.table || (rootContext.context.table && !rootContext.context.table.selected.length)) {
+        if(!rootContext.context["class"] || (rootContext.context["class"] && !rootContext.context["class"].selected.length)) {
             dispatch(addNewError({
                 status: false,
                 title: "Warning",
@@ -97,7 +106,7 @@ const MyClasses = props => {
             }));
             return;
         }
-        if(rootContext.context.table.selected.length > 1) {
+        if(rootContext.context["class"].selected.length > 1) {
             dispatch(addNewError({
                 status: false,
                 title: "Warning",
@@ -105,11 +114,11 @@ const MyClasses = props => {
             }));
             return;
         }
-        setSelected(rootContext.context.table.selected);
+        setSelected(rootContext.context["class"].selected);
         setMode("edit");
     }
     const deleteClassEvent = () => {
-        let selected = rootContext.context?.table?.selected ?? [];
+        let selected = rootContext.context["class"]?.selected ?? [];
 
         if(!selected.length) {
             dispatch(addNewError({
@@ -171,14 +180,23 @@ const MyClasses = props => {
                             <FontAwesomeIcon icon="fas fa-trash" />Delete
                         </button>
                     </div>
-                    <TableView columns={columns} rowData={processedClassList()} />
-                </>    
+                    <TableView id="class" editable={true} columns={columns} rowData={processedClassList()} />
+                </>
             }
             { mode === "add" && 
                 <ClassForm mode={mode} setMode={setMode} fetchClassList={fetchClassList} />
             }
             { mode === "edit" && 
                 <ClassForm mode={mode} setMode={setMode} selected={getClassById(selected[0])} fetchClassList={fetchClassList} />
+            }
+            { mode === "detail" &&
+                <div className="detail-view-container">
+                    <button type="button" className="btn-ctrl btn-ctrl-purple back-btn" onClick={() => setMode("view")}>
+                        <FontAwesomeIcon icon="fas fa-arrow-left" />
+                    </button>
+                    <ClassCardView selClass={getClassById(selected[0])} />
+                    <TableView columns={participantsColumns} rowData={getClassById(selected[0]).participants} />
+                </div>
             }
         </div>
     );

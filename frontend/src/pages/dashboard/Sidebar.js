@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Accordion } from "react-bootstrap";
 
 import { userLogOut } from "../../store/slices/userSlice";
+import { CONFIG } from "../../config/index"
 
 import resourcesImage from "../../assets/images/dashboard/resources.svg";
 import invoicesImage from "../../assets/images/dashboard/students_invoices.svg";
@@ -46,7 +47,7 @@ const Sidebar = props => {
     return (
         <div className={`sidebar ${props.open? "open": ""}`}>
             <div className="avatar-container">
-                { userInfo.avatar ? <Avatar alt="avatar" src="http://localhost:5000/avatars/teacher.png" />
+                { userInfo.avatar ? <Avatar alt="avatar" src={`${CONFIG.serverPath}/uploads/avatars/teacher.png`} />
                     : <FontAwesomeIcon icon="fas fa-user-tie" />
                 }
                 <div>

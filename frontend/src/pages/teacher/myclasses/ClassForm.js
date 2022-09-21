@@ -18,7 +18,7 @@ const ClassForm = props => {
     const [description, setDescription] = useState(props.selected?.description ?? "");
     const [shortDescription, setShortDescription] = useState(props.selected?.shortDescription ?? "");
     const [banner, setBanner] = useState("");
-    const [bannerPreview, setBannerPreview] = useState((props.selected && props.selected.banner)? `${CONFIG.serverPath}${props.selected.banner}`:null);
+    const [bannerPreview, setBannerPreview] = useState((props.selected?.banner)? `${CONFIG.serverPath}${props.selected.banner}`:null);
     const changeBannerEvent = e => {
         let file = e.target.files;
         if(!file.length)
@@ -81,6 +81,7 @@ const ClassForm = props => {
         setGroups(tmp);
     }
 
+    const [numberOfParticipants, setNumberOfParticipants] = useState(props.selected?.numberOfParticipants ?? 1);
     const [lengthDescription, setLengthDescription] = useState(props.selected?.lengthDescription ?? "");
     const [participants, setParticipants] = useState(props.selected?.participants ?? "");
 console.log(props)
@@ -107,9 +108,12 @@ console.log(props)
             policy,
             level: level.join(","),
             groups,
+            numberOfParticipants,
             lengthDescription,
             participants
         }
+        if(!bannerPreview)
+            postData.banner = "";
         const formData = new FormData();
         if(banner)
             formData.append("banner", banner);
@@ -140,14 +144,14 @@ console.log(props)
                     props.setMode("view");
                     dispatch(addNewError({
                         status: true,
-                        title: "Adding Class",
+                        title: "Updating Class",
                         msg: "Success!"
                     }))
                 }
             }, error => {
                 dispatch(addNewError({
                     status: false,
-                    title: "Adding Class",
+                    title: "Updating Class",
                     msg: "Error Occurs!"
                 }))
             })
@@ -341,36 +345,50 @@ console.log(props)
                 <div className="group-container">
                     {
                         groups.map((group, index) => (
-                            <div key={`group_`+index} className="group-item">
-                                <button type="button" className="btn-ctrl btn-ctrl-red del-btn" onClick={() => delGroupEvent(index)}>
-                                    <FontAwesomeIcon icon="fas fa-xmark" />
-                                </button>
-                                <TextField
-                                    className="group-name"
-                                    variant="outlined"
-                                    size="small"
-                                    placeholder="Name"
-                                    value={group.name}
-                                    onChange={e => changeGroupNameEvent(e.target.value, index)}
-                                />
-                                <OutlinedInput
-                                    className="group-price"
-                                    variant="outlined"
-                                    placeholder="Price"
-                                    endAdornment={<InputAdornment position="end">€</InputAdornment>}
-                                    aria-describedby="group price"
-                                    inputProps={{
-                                        'aria-label': 'group-price',
-                                    }}
-                                    type="number"
-                                    value={group.price}
-                                    onChange={e => changeGroupPriceEvent(e.target.value, index)}
-                                />
+                            <div key={`group_`+index} className="mt-2">
+                                <label className="d-block">{`Price ${index + 1}`}</label>
+                                <div className="group-item mt-2">
+                                    <button type="button" className="btn-ctrl btn-ctrl-red del-btn" onClick={() => delGroupEvent(index)}>
+                                        <FontAwesomeIcon icon="fas fa-xmark" />
+                                    </button>
+                                    <TextField
+                                        className="group-name"
+                                        variant="outlined"
+                                        size="small"
+                                        placeholder="Name"
+                                        value={group.name}
+                                        onChange={e => changeGroupNameEvent(e.target.value, index)}
+                                    />
+                                    <OutlinedInput
+                                        className="group-price"
+                                        variant="outlined"
+                                        placeholder="Price"
+                                        endAdornment={<InputAdornment position="end">€</InputAdornment>}
+                                        aria-describedby="group price"
+                                        inputProps={{
+                                            'aria-label': 'group-price',
+                                        }}
+                                        type="number"
+                                        value={group.price}
+                                        onChange={e => changeGroupPriceEvent(e.target.value, index)}
+                                    />
+                                </div>
                             </div>
                         ))
                     }
-                    <button type="button" className="btn-ctrl btn-ctrl-purple ms-2" onClick={addGroupEvent}><FontAwesomeIcon icon="fas fa-plus"/></button>
+                    <button type="button" className="btn-ctrl btn-ctrl-purple ms-2 mt-2" onClick={addGroupEvent}><FontAwesomeIcon icon="fas fa-plus"/></button>
                 </div>
+            </div>
+            <div className="number-of-participants">
+                <label className="d-block">Number of Participants</label>
+                <TextField
+                    className="text-input"
+                    variant="outlined"
+                    type="number"
+                    size="small"
+                    value={numberOfParticipants}
+                    onChange={e => setNumberOfParticipants(e.target.value)}
+                />
             </div>
             <div className="c-sec-6">
                 <div className="length-ctrl">

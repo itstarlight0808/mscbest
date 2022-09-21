@@ -1,26 +1,31 @@
 import React, {useState, useEffect} from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import ClassAd from "../components/ClassAd";
-import ClassComponent from "../components/ClassComponent";
+import ClassCardView from "../components/ClassCardView";
 import FrequentlyQuestion from "../components/FrequentlyQuestion";
 
+import { getClassListAPI } from "../store/slices/classSlice";
+
 const Classes = props => {
-    const classInfo = {
-        name: 'Holly Hylton',
-        subtitle: "Meisner with Music",
-        type: "Master Class",
-        description: "You will learn to apply the Meisner Technique in your storytelling through song and Holly will help you develop a set of tools to approach your material.",
-        date: "01 June 2020"
-    }
+    const dispatch = useDispatch();
+    const { classList } = useSelector(state => state.classes);
+
+    useEffect(() => {
+        dispatch(getClassListAPI);
+    }, [])
+    
     return (
         <div className="classes">
             <ClassAd />
             <div className="class-list-container">
-                <ClassComponent classInfo={classInfo} />
-                <ClassComponent classInfo={classInfo} />
-                <ClassComponent classInfo={classInfo} />
-                <ClassComponent classInfo={classInfo} />
-                <ClassComponent classInfo={classInfo} />
+                {
+                    classList.map((one, index) => {
+                        return (
+                            <ClassCardView key={`card_${index}`} selClass={one} />
+                        )
+                    })
+                }
             </div>
             <FrequentlyQuestion />
         </div>
