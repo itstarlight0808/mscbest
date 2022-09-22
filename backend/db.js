@@ -42,7 +42,6 @@ const whereQuery = (params = {}) => {
 const selectRecords = async (query) => {
     let [rows, ] = await executeQuerySync(query);
 
-    console.log(rows)
     if(!rows)
         return [];
     return rows;

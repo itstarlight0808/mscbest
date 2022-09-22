@@ -46,21 +46,10 @@ const getToken = (user) => {
 };
 
 const isAuth = (req, res, next) => {
-  const token = req.headers.authorization;
-
-  if (token) {
-    const onlyToken = token.slice(7, token.length);
-    jwt.verify(onlyToken, config.JWT_SECRET, (err, decode) => {
-      if (err) {
-        return res.status(401).send({ message: 'Invalid Token' });
-      }
-      req.user = decode;
-      next();
-      return;
-    });
-  } else {
+  if(req.user) 
+    next();
+  else
     return res.status(401).send({ message: 'Token is not supplied.' });
-  }
 };
 
 const isAdmin = (req, res, next) => {
@@ -70,6 +59,18 @@ const isAdmin = (req, res, next) => {
   }
   return res.status(401).send({ message: 'Admin Token is not valid.' });
 };
+
+const isStudent = req => {
+  if(req.user && req.user.accountType === 0)
+    return true;
+  return false;
+}
+
+const isTeacher = req => {
+  if(req.user && req.user.accountType === 1)
+    return true;
+  return false;
+}
 
 const hashToken = str => {
   return bcrypt.hashSync(str, config.bcryptSalt);
@@ -89,4 +90,4 @@ const renderHtmlTemplate = (filepath, params) => {
   return template(params);
 }
 
-module.exports = { upload, getToken, isAuth, isAdmin, hashToken, compareToken, renderHtmlTemplate };
+module.exports = { upload, getToken, isAuth, isAdmin, isStudent, isTeacher, hashToken, compareToken, renderHtmlTemplate };
