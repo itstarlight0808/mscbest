@@ -4,6 +4,7 @@ const moment = require('moment');
 const { getToken, isAuth, hashToken, compareToken, renderHtmlTemplate } = require('../util');
 const sendEmail = require("../mail/index");
 const db = require("../db");
+const jsxNoBind = require('eslint-plugin-react/lib/rules/jsx-no-bind');
 
 const router = express.Router();
 
@@ -30,7 +31,7 @@ router.put('/update', isAuth, async (req, res) => {
       token: getToken(updatedUser),
     });
   } else {
-    res.status(404).send({ message: 'User Not Found' });
+    res.status(404).send({ msg: "User Not Found" });
   }
 });
 
@@ -38,7 +39,7 @@ router.post('/signin', async (req, res) => {
   let query = `SELECT * FROM users ` + db.whereQuery({ email: req.body.email });
   const result = await db.selectRecords(query);
 
-  if (result.length && compareToken(req.body.password, result[0].password) ) {
+  if (result.length && compareToken(req.body.password, result[0].password) && result[0].emailVerified ) {
     const signinUser = result[0];
 
     res.send({
@@ -51,8 +52,10 @@ router.post('/signin', async (req, res) => {
       emailVerified: signinUser.emailVerified,
       token: getToken(signinUser),
     });
+  } else if(result.length && !result[0].emailVerified) {
+    res.status(401).send({ msg: "Your Email is not verified. Please check your inbox to verify your Email." });
   } else {
-    res.status(401).send({ message: 'Invalid Email or Password.' });
+    res.status(401).send({ msg: "Invalid Email or Password" });
   }
 });
 
@@ -62,10 +65,11 @@ router.get('/testEmail', async (req, res) => {
     subject: "Welcome to Musical World",
     text: "test test"
   };
-  let result = sendEmail(emailData);
-  
-  console.log(result)
-  res.send(result);
+  sendEmail(emailData).then(res => {
+    res.send({ msg: "Email is sent " + res.response })
+  }).catch(error => {
+    res.send({ msg: error })
+  });
 })
 router.post('/register', async (req, res) => {
   try {
@@ -90,25 +94,19 @@ router.post('/register', async (req, res) => {
         subject: "Welcome to Musical World",
         html: renderHtmlTemplate("./mail/template/confirm_email.html", { id: user.id, token: hashToken(user.id + user.email)})
       };
-      sendEmail(emailData);
-  
-      res.send({
-        registered: true,
-        accountType: user.accountType,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        phoneNumber: user.phoneNumber,
-        isAdmin: user.isAdmin,
-        emailVerified: false,
-        token: getToken(user)
+      sendEmail(emailData).then(info => {
+        res.send({
+          registered: true,
+        });
+      }).catch(error => {
+        res.status(500).send({ msg: "Email is not sent. " + JSON.stringify(error) });
       });
     } else {
-      res.status(401).send({ message: 'Invalid User Data.' });
+      res.status(401).send({ msg: "Invalid User Data." });
     }
   } catch(e) {
     console.log(e)
-    res.status(409).send({ message: e.sqlMessage });
+    res.status(409).send({ msg: e.sqlMessage });
   }
 });
 

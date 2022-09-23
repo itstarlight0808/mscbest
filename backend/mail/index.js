@@ -8,11 +8,15 @@ const sendEmail = async (data) => {
     
     data = { ...data, from: config.smtp.auth.user };
     console.log(data)
-    transporter.sendMail(data, (error, info) => {
-        console.log(error)
-    });
-
-    return true;
+    return new Promise((resolve, reject) => {
+        transporter.sendMail(data, (error, info) => {
+            if(error)
+                reject(error)
+            else {
+                resolve(info)
+            }
+        });
+    })
 }
 
 module.exports = sendEmail;
