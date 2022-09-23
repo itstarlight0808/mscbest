@@ -18,10 +18,11 @@ const userSlice = createSlice({
             state.userLocale = action.payload;
         },
         setUserInfo: (state, action) => {
-            state.userInfo = {...action.payload};
-            if(action.payload.registered)
-                delete action.payload.registered;
+            state.userInfo = action.payload;
             Cookie.set(COOKIE_KEY.USER_INFO, action.payload);
+        },
+        setIsRegistered: (state, action) => {
+            state.isRegistered = action.payload.registered;
         },
         userLogOut: (state, action) => {
             Cookie.remove(COOKIE_KEY.USER_INFO);
@@ -31,7 +32,7 @@ const userSlice = createSlice({
     }
 });
 
-export const { setUserLocale, setLoadingStatus, setUserInfo, userLogOut } = userSlice.actions;
+export const { setUserLocale, setLoadingStatus, setUserInfo, setIsRegistered, userLogOut } = userSlice.actions;
 export default userSlice.reducer;
 
 export const getUserLocale = () => (dispatch, getState) => {
@@ -45,9 +46,11 @@ export const userSignin = (email, password) => async (dispatch, getState) => {
     const res = await httpClient.post("/users/signin", { email, password }).then(res => {
         dispatch(setUserInfo(res.data));
     }, error => {
+        console.log(error.response)
         dispatch(addNewError({
+            status: false,
             title: "SignIn",
-            message: error.response.statusText
+            msg: error.response.data.msg
         }))
     });
     dispatch(setLoadingStatus(false));
@@ -58,20 +61,24 @@ export const userUpdate = (userId, params) => async dispatch => {
         dispatch(setUserInfo(res.data));
     }, error => {
         dispatch(addNewError({
+            status: false,
             title: "User Update",
-            message: error.response.statusText
+            msg: error.response.data.msg
         }));
     });
     dispatch(setLoadingStatus(false));
 }
-export const userRegister = params => async dispatch =>  {
+export const userRegister = (params, cb = null) => async dispatch =>  {
     dispatch(setLoadingStatus(true));
     await httpClient.post("/users/register", params).then(res => {
-        dispatch(setUserInfo(res.data));
+        dispatch(setIsRegistered(res.data));
+        if(cb)
+            cb(res);
     }, error => {
         dispatch(addNewError({
+            status: false,
             title: "Registration",
-            message: error.response.data.message
+            msg: error.response.data.msg
         }));
     });
     dispatch(setLoadingStatus(false));

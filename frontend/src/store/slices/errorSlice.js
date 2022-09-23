@@ -10,7 +10,7 @@ const errorSlice = createSlice({
             state.errorList.push(action.payload);
         },
         deleteError: (state, action) => {
-            state.errorList = state.errorList.splice(action.payoad);
+            state.errorList.splice(action.payload, 1);
         }
     }
 })
