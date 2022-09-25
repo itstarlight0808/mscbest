@@ -1,8 +1,8 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const InterpolateHtmlPlugin = require('interpolate-html-plugin');
 const path = require('path');
-module.exports = {
-    mode: 'development',
+module.exports = env => ({
+    mode: env.mode,
     entry: "./src/index.js",
     // Here the application starts executing
     // and webpack starts bundling
@@ -62,4 +62,4 @@ module.exports = {
             apiUrl: 'http://localhost:4000'
         })
     }
-}
+})
