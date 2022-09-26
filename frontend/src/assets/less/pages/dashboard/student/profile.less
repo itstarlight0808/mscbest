@@ -1,0 +1,47 @@
+.p-student-profile {
+    max-width: 600px;
+    margin: auto;
+    padding: 18px;
+    
+    .profile-content {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+
+        .avatar-container {
+            width: 40%;
+
+            .MuiAvatar-root {
+                width: 140px;
+                height: 140px;
+
+                img {
+                    cursor: pointer;
+                }
+            }
+
+            svg {
+                width: 100px;
+                height: 100px;
+                padding: 15px;
+                border: 2px solid;
+                border-radius: 50%;
+                cursor: pointer;
+            }
+        }
+
+        .form-group {
+            width: 60%;
+
+            .text-input {
+                margin: 4px 18px 12px;
+            }
+        }
+    }
+    .ctrl-container {
+        margin-top: 18px;
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+    }
+}

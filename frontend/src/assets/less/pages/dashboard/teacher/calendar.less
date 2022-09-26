@@ -1,0 +1,73 @@
+.c-calendar-container {
+    .btn-sync {
+        margin-left: auto !important;
+        color: @purple-color;
+        background: transparent;
+        border: 1px solid @purple-color;
+    }
+
+    .calendar-view-container {
+        display: flex;
+        width: 60%;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 12px;
+
+        .sel-date {
+            display: flex;
+            align-items: center;
+
+            h3 {
+                font-weight: 700;
+                font-size: 20px;
+            }
+            .datepicker {
+                > div {
+                    &::before {
+                        border: none;
+                    }
+                    
+                    input {
+                        display: none;
+                    }
+
+                    svg {
+                        color: #6363ff;
+                    }
+                }
+            }
+        }
+
+        .btn-purple {
+            width: 30px;
+            height: 30px;
+            padding: 0;
+            margin: 0 10px 0 10px;
+
+            svg {
+                width: 16px;
+                height: 16px;
+            }
+        }
+
+        .calendar-view {
+            display: flex;
+            align-items: center;
+
+            .view-tabs {
+                border: 1px solid @purple-color;
+                border-radius: 7px;
+
+                .btn-cal-view {
+                    background: @white-color;
+                    color: @purple-color;
+    
+                    &.active {
+                        background: @purple-color;
+                        color: @white-color;
+                    }
+                }
+            }
+        }
+    }
+}
