@@ -1,0 +1,219 @@
+.class-card-view {
+    width: 35%;
+    margin-right: 12px;
+    border: 1px dotted @purple-color;
+    border-radius: 4px;
+    background: #5f269e33;
+
+    .banner {
+        position: relative;
+        cursor: pointer;
+
+        img {
+            width: 100%;
+        }
+
+        .title {
+            width: 70%;
+            position: absolute;
+            bottom: 12px;
+            left: 15%;
+            padding: 8px;
+            background: @purple-color;
+            border: 3px solid @white-color;
+            border-radius: 10px;
+            color: @white-color;
+            text-align: center;
+
+            h3 {
+                font-family: 'Montserrat';
+                font-weight: 700;
+                font-size: 18px;
+            }
+
+            h4 {
+                margin-top: 4px;
+                font-family: 'Montserrat';
+                font-weight: 400;
+                font-size: 18px;
+            }
+        }
+    }
+
+    .body {
+        padding: 5px 10px;
+
+        .avatar-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            svg {
+                width: 40px;
+                height: 40px;
+                color: @white-color;
+                padding: 6px;
+                border-radius: 50%;
+                border: 2px solid @white-color;
+            }
+
+            span {
+                font-family: 'Montserrat';
+                font-weight: 400;
+                font-size: 20px;
+            }
+        }
+
+        .class-title {
+            margin-top: 12px;
+            font-family: 'Montserrat';
+            font-weight: 400;
+            font-size: 16px;
+        }
+
+        .short-description {
+            margin: 8px 0 12px;
+            font-style: italic;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 16px;
+        }
+
+        .schedule-list {
+            display: flex;
+            gap: 9px;
+            font-family: 'Montserrat';
+            font-weight: 400;
+            font-size: 12px;
+
+            .schedule-item {
+                font-family: 'Montserrat';
+                font-weight: 400;
+                font-size: 12px;
+            }
+        }
+    }
+
+    > .footer {
+        margin-top: 18px;
+        padding: 0 10px 12px;
+        background: transparent;
+        
+        .btn-ctrl-container {
+            display: flex;
+            align-items: center;
+            text-align: center;
+
+            .btn-class-info {
+                width: 50%;
+                text-decoration: underline;
+                cursor: pointer;
+            }
+
+            .btn-orange.outline {
+                background: transparent;
+                border: 1px solid #FC5252;
+                color: #FC5252;
+
+                &:hover {
+                    background: #FC5252;
+                    color: @white-color;
+                }
+            }
+        }
+
+        .availability-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-top: 8px;
+            border-top: 1px solid grey;
+
+            .class-reserve-status {
+                width: 130px;
+                margin-top: 12px;
+                padding: 5px;
+                background: @white-color;
+                text-align: center;
+                border: 1px dotted @purple-color;
+                border-radius: 20px;
+    
+                .availability {
+                    color: #382F32;
+                    font-weight: 400;
+                    font-size: 11px;
+                }
+    
+                .title {
+                    font-weight: 700;
+                    margin-top: 13px;
+                    font-size: 11px;
+    
+                    .reserved {
+                        color: #FF0000;
+                    }
+                    .divider {
+                        color: @purple-color;
+                    }
+                    .available {
+                        color: #008000;
+                    }
+                }
+                
+                .status {
+                    font-family: 'Montserrat';
+                    font-weight: 700;
+                    font-size: 40px;
+    
+                    .reserved {
+                        color: #ff0000;
+                    }
+                    .divider {
+                        color: @purple-color;
+                    }
+                    .available {
+                        color: #008000;
+                    }
+                }
+                .footer {
+                    padding: 6px 0;
+                    background: #FC5252;
+                    font-family: 'Montserrat';
+                    font-weight: 700;
+                    font-size: 9px;
+                    color: @white-color;
+                    border-radius: 0 0 20px 20px;
+                }
+            }
+
+            .book-status {
+                display: flex;
+                padding: 2px;
+                background: @white-color;
+                
+                &.reserve {
+                    color: #E8C81F;
+                    border: 2px solid #E8C81F;
+                }
+                &.reserved {
+                    color: #0C8E21;
+                    border: 2px solid #0C8E21;
+                }
+                &.full {
+                    color: #ff0000;
+                    border: 2px solid #ff0000;
+                }
+
+                svg {
+                    width: 35px;
+                    height: 35px;
+                }
+
+                h6 {
+                    width: 100px;
+                }
+            }
+
+        }
+    }
+}
