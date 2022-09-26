@@ -1,0 +1,61 @@
+.c-monthly-view {
+    margin: 12px 12px 0 0;
+
+    .calendar-table {
+        td {
+            position: relative;
+            height: 120px;
+            padding: 0;
+
+            .day {
+                width: 40px;
+                height: 40px;
+                margin: auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                cursor: pointer;
+
+                &:hover {
+                    background: #16bf16;
+                    color: @white-color;
+                }
+
+                &:active {
+                    background: #089f08;
+                }
+
+                &.selected {
+                    background: #16bf16;
+                    color: @white-color;
+                }
+
+                &.today {
+                    border: 2px solid #16bf16;
+                }
+            }
+
+            .class-list {
+                position: absolute;
+                bottom: 2px;
+                width: 95%;
+                text-align: left;
+
+                .class-item {
+                    padding-left: 5px;
+                    font-family: "Montserrat";
+                    font-size: 12px;
+                    border-radius: 4px;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+
+                    & + .class-item {
+                        border-top: 1px solid grey;
+                    }
+                }
+            }
+        }
+    }
+}
