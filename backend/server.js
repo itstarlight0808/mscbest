@@ -4,8 +4,10 @@ const bodyParser = require('body-parser');
 const helmet = require("helmet");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
+const { createServer } = require("http");
 const { applyRoutes } = require("./routes/index");
 const config = require("./config");
+const { initSocket } = require("./sockets");
 
 const app = express();
 
@@ -35,6 +37,10 @@ app.use((req, res, next) => {
 
 applyRoutes(app);
 
-app.listen(config.PORT, () => {
+const httpServer = createServer(app);
+
+initSocket(httpServer);
+
+httpServer.listen(config.PORT, () => {
   console.log('Server started at http://localhost:5000');
 });

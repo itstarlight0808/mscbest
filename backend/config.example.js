@@ -28,5 +28,7 @@ module.exports = {
       clientSecret: "CLIENT_SECRET",
       refreshToken: "REFRESH_TOKEN"
     }
-  }
+  },
+  staticDir: "static",
+  templateDir: "templates"
 };

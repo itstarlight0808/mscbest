@@ -33,7 +33,8 @@ const getToken = (user) => {
   return jwt.sign(
     {
       id: user.id,
-      name: user.name,
+      firstName: user.firstName,
+      lastName: user.lastName,
       email: user.email,
       isAdmin: user.isAdmin,
       accountType: user.accountType
