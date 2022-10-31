@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../db");
 const { isAuth } = require("../util");
+const teacherModel = require("../models/teacherModel");
 
 router.get("/getMyStudents", isAuth, async (req, res) => {
     console.log("***get my students***")

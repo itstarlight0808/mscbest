@@ -5,6 +5,7 @@ const router = express.Router();
 const config = require("../config");
 const {isAdmin, isAuth, isStudent, isTeacher, upload} = require("../util");
 const db = require("../db");
+const NotificationModel = require("../models/notificationModel");
 
 router.get('/', async (req, res) => {
     try {
@@ -337,8 +338,14 @@ router.post("/:id/book", isAuth, async (req, res) => {
         let teacher = await db.selectRecords("SELECT teacherId FROM classes" + db.whereQuery({ id: classId }));
         teacher = teacher[0];
         
+        NotificationModel.bookClassNotification({
+            userId: teacher.teacherId,
+            studentName: `${req.user.firstName} ${req.user.lastName}`,
+            classId: classId
+        });
         try {
             await db.insertRecords("teacher_studentdb", { teacherId: teacher.teacherId, studentId: params.studentId, groupId: params.groupId, status: 1 });
+
             console.log("new student added")
         } catch(err) {
             console.log(err)
@@ -357,6 +364,15 @@ router.delete("/:id/cancelBooking", isAuth, async (req, res) => {
         let params = { classId, studentId: userId };
 
         let [result, ] = await db.deleteRecords("class_participants", params);
+        
+        let teacher = await db.selectRecords("SELECT teacherId FROM classes" + db.whereQuery({ id: classId }));
+        teacher = teacher[0];
+        
+        NotificationModel.cancelBookClassNotification({
+            userId: teacher.teacherId,
+            studentName: `${req.user.firstName} ${req.user.lastName}`,
+            classId: classId
+        });
 
         res.send({ userId });
     } catch(err) {

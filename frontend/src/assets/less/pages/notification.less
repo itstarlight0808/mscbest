@@ -1,0 +1,53 @@
+.p-notification {
+    .notification-list-container {
+        max-width: 900px;
+        
+        .notification-item {
+            position: relative;
+            cursor: pointer;
+            box-shadow: 0px 0px 7px;
+            border-radius: 5px;
+            padding: 10px;
+
+            &.read {
+                background: #f1e8ff;
+            }
+
+            & + .notification-item {
+                margin-top: 12px;
+            }
+
+            h3 {
+                font-family: "Montserrat";
+                font-size: 16px;
+                font-weight: 800;
+            }
+
+            .content {
+                width: 400px;
+                font-family: "Montserrat";
+                font-size: 14px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            .del-btn {
+                display: none;
+                position: absolute;
+                padding: 12px;
+                right: 4px;
+                bottom: 10px;
+                background: white;
+
+                &:hover {
+                    background: #bcbcbc;
+                }
+            }
+
+            &:hover .del-btn {
+                display: block;
+            }
+        }
+    }
+}
