@@ -1,0 +1,170 @@
+.c-schedule-class-form {
+    .form-content {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 24px;
+
+        .class-list-container {
+            width: 45%;
+            height: 400px;
+            padding: 0;
+            overflow: auto;
+            border: 1px solid #999;
+            border-radius: 5px;
+            
+            .class-item {
+                border-top: 1px solid #999;
+                border-left: 5px solid #999;
+
+                &.active {
+                    border-left: 5px solid green;
+                }
+
+                .title {
+                    font-size: 16px;
+                    font-weight: 700;
+                }
+
+                .short-description {
+                    margin: 12px 0 0;
+                    font-size: 14px;
+                }
+            }
+        }
+
+        .class-preview-card {
+            width: 45%;
+            margin-right: 12px;
+            border: 1px dotted @purple-color;
+            border-radius: 4px;
+            background: #5f269e33;
+
+            .preview-placeholder {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
+
+                h2 {
+                    font-weight: 700;
+                }
+            }
+
+            .banner {
+                position: relative;
+
+                img {
+                    width: 100%;
+                }
+
+                .title {
+                    width: 70%;
+                    position: absolute;
+                    bottom: 12px;
+                    left: 15%;
+                    padding: 8px;
+                    background: @purple-color;
+                    border: 3px solid @white-color;
+                    border-radius: 10px;
+                    color: @white-color;
+                    text-align: center;
+
+                    h3 {
+                        font-family: 'Montserrat';
+                        font-weight: 700;
+                        font-size: 18px;
+                    }
+
+                    h4 {
+                        margin-top: 4px;
+                        font-family: 'Montserrat';
+                        font-weight: 400;
+                        font-size: 18px;
+                    }
+                }
+            }
+
+            .body {
+                padding: 5px 10px;
+
+                .avatar-container {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+
+                    svg {
+                        width: 40px;
+                        height: 40px;
+                        color: @white-color;
+                        padding: 6px;
+                        border-radius: 50%;
+                        border: 2px solid @white-color;
+                    }
+
+                    span {
+                        font-family: 'Montserrat';
+                        font-weight: 400;
+                        font-size: 20px;
+                    }
+                }
+
+                .class-title {
+                    margin-top: 12px;
+                    font-family: 'Montserrat';
+                    font-weight: 400;
+                    font-size: 16px;
+                }
+
+                .short-description {
+                    margin: 8px 0 12px;
+                    font-style: italic;
+                    font-weight: 400;
+                    font-size: 14px;
+                    line-height: 16px;
+                }
+
+                .schedule-list {
+                    display: flex;
+                    gap: 9px;
+                    font-family: 'Montserrat';
+                    font-weight: 400;
+                    font-size: 12px;
+
+                    .schedule-item {
+                        width: 210px;
+                        display: flex;
+                        justify-content: space-between;
+
+                        svg {
+                            cursor: pointer;
+                            color: #cf2b02;
+                        }
+                    }
+                }
+            }
+
+            .footer {
+                margin-top: 18px;
+                background: transparent;
+
+                .btn-add-schedule {
+                    display: flex;
+                    align-items: center;
+                    gap: 4px;
+
+                    &:active, &:focus {
+                        box-shadow: none;
+                    }
+
+                    svg {
+                        width: 20px;
+                        height: 20px;
+                        padding: 1px;
+                        border: 1px solid;
+                    }
+                }
+            }
+        }
+
+    }
+}

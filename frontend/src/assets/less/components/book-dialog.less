@@ -1,0 +1,43 @@
+
+.c-book-dialog-container {
+    .group-container {
+        .group-item {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+    
+            &.active {
+                .group-name {
+                    border: 1px dotted blue;
+                }
+    
+                .group-price {
+                    background: #4444ff;
+                }
+            }
+    
+            .group-name {
+                width: 100px;
+                padding: 7px;
+                border: 1px dotted;
+            }
+    
+            .group-price {
+                width: 65px;
+                padding: 8px;
+                background: #000;
+                color: @white-color;
+                border-radius: 0 5px 5px 0;
+    
+                p {
+                    color: @white-color;
+                }
+            }
+    
+            svg {
+                margin-left: 12px;
+                color: green;
+            }
+        }
+    }
+}

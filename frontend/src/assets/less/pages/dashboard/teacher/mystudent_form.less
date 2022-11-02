@@ -1,0 +1,93 @@
+.c-mystudents-form {
+    display: flex;
+    gap: 8px;
+
+    .form-content {
+        display: flex;
+        gap: 50px;
+
+        .student-sel-container {
+            .student-list-container {
+                width: 300px;
+                height: 400px;
+                overflow-y: auto;
+                padding: 12px;
+                margin-top: 24px;
+                border: 1px solid @purple-color;
+                border-radius: 5px;
+
+                .student-item {
+                    border-top: 1px dotted @purple-color;
+                    border-bottom: 1px dotted @purple-color;
+
+                    &.active {
+                        background: @purple-color;
+                        color: @white-color;
+                    }
+                }
+            }
+        }
+
+        .group-container {
+            margin-top: 12px;
+
+            > label {
+                padding-left: 12px;
+            }
+
+            .group-list {
+                height: 350px;
+                overflow: auto;
+
+                .group-item {
+                    display: flex;
+                    align-items: center;
+                    cursor: pointer;
+            
+                    &.active {
+                        .group-name {
+                            border: 1px dotted blue;
+                        }
+            
+                        .group-price {
+                            background: #4444ff;
+                        }
+                    }
+            
+                    .group-name {
+                        width: 100px;
+                        padding: 7px;
+                        border: 1px dotted;
+                    }
+            
+                    .group-price {
+                        width: 65px;
+                        padding: 8px;
+                        background: #000;
+                        color: @white-color;
+                        border-radius: 0 5px 5px 0;
+            
+                        p {
+                            color: @white-color;
+                        }
+                    }
+            
+                    svg {
+                        margin-left: 12px;
+                        color: green;
+                    }
+                }
+            }
+        }
+
+        .ctrl-container {
+            display: flex;
+            flex-direction: column;
+            margin-top: 60px;
+
+            button + button {
+                margin-top: 12px;
+            }
+        }
+    }
+}

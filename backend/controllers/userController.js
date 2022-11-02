@@ -1,10 +1,12 @@
 const express = require('express');
 const path = require("path");
 const moment = require('moment');
-const { getToken, isAuth, hashToken, compareToken, renderHtmlTemplate } = require('../util');
+const fs = require("fs");
+const { getToken, isAuth, hashToken, compareToken, renderHtmlTemplate, upload } = require('../util');
+const config = require("../config");
 const sendEmail = require("../mail/index");
 const db = require("../db");
-const jsxNoBind = require('eslint-plugin-react/lib/rules/jsx-no-bind');
+const settingModel = require("../models/settingModel");
 
 const router = express.Router();
 
@@ -26,6 +28,7 @@ router.put('/update', isAuth, async (req, res) => {
       lastName: signinUser.lastName,
       email: signinUser.email,
       phoneNumber: signinUser.phoneNumber,
+      avatar: signinUser.avatar,
       isAdmin: signinUser.isAdmin,
       emailVerified: signinUser.emailVerified,
       token: getToken(updatedUser),
@@ -35,6 +38,73 @@ router.put('/update', isAuth, async (req, res) => {
   }
 });
 
+router.put("/updateProfile", isAuth, upload.single("avatar") , async (req, res) => {
+  console.log("update my profile...")
+  console.log(req.body);
+  const params = {
+    ...JSON.parse(req.body.params),
+    updatedAt: moment().format("YYYY-MM-DD HH:mm:ss")
+  };
+  const userId = req.user.id;
+
+  try {
+    let user = await db.selectRecords("SELECT * FROM users" + db.whereQuery({ id: userId }));
+    user = user[0];
+    if(user.avatar) {
+      fs.unlink(config.staticDir + user.avatar, err => {
+        if(err)
+          console.log(user.avatar + "is not deleted");
+        console.log(user.avatar + "is deleted");
+      })
+    }
+    if(req.file) {
+      console.log(req.file)
+      const oldPath = req.file.path;
+      const newPath = `/uploads/avatars/${req.file.filename}`;
+      fs.renameSync(oldPath, config.staticDir + newPath);
+      params.avatar = newPath;
+    }
+    let [result, ] = await db.updateRecords("users", params, { id: userId });
+
+    const updatedUser = { ...user, ...params };
+    res.send({
+      id: updatedUser.id,
+      accountType: updatedUser.accountType,
+      firstName: updatedUser.firstName,
+      lastName: updatedUser.lastName,
+      email: updatedUser.email,
+      phoneNumber: updatedUser.phoneNumber,
+      avatar: updatedUser.avatar,
+      isAdmin: updatedUser.isAdmin,
+      emailVerified: updatedUser.emailVerified,
+      token: getToken(updatedUser)
+    });
+  } catch(err) {
+    res.status(500).send({msg: "Internal server Error"});
+    // res.status(500).send({msg: err.sqlMessage});
+  }
+})
+
+router.put("/changePassword", isAuth, async (req, res) => {
+  console.log("***change password***")
+  const password = hashToken(req.body.password);
+  const oldPassword = req.body.oldPassword;
+  const userId = req.user.id;
+
+  if(!password)
+    res.status(409).send({ msg: "Password can't be empty!" });
+
+  try {
+    const user = await db.selectRecords("SELECT password FROM users" + db.whereQuery({ id: userId }));
+    if(compareToken(oldPassword, user[0].password))
+      await db.updateRecords("users", { password }, { id: userId });
+    else
+      res.status(409).send({ msg: "Your old password is incorrect." })
+    res.send();
+  } catch(err) {
+    res.send(500).send({ msg: "Internal Server Error." });
+  }
+})
 router.post('/signin', async (req, res) => {
   let query = `SELECT * FROM users ` + db.whereQuery({ email: req.body.email });
   const result = await db.selectRecords(query);
@@ -43,11 +113,13 @@ router.post('/signin', async (req, res) => {
     const signinUser = result[0];
 
     res.send({
+      id: signinUser.id,
       accountType: signinUser.accountType,
       firstName: signinUser.firstName,
       lastName: signinUser.lastName,
       email: signinUser.email,
       phoneNumber: signinUser.phoneNumber,
+      avatar: signinUser.avatar,
       isAdmin: signinUser.isAdmin,
       emailVerified: signinUser.emailVerified,
       token: getToken(signinUser),
@@ -89,6 +161,8 @@ router.post('/register', async (req, res) => {
     if (result.affectedRows) {
       user.id = result.insertId;
 
+      settingModel.insertStudioSetting(user.id);
+
       let emailData = {
         to: user.email,
         subject: "Welcome to Musical World",
@@ -106,7 +180,8 @@ router.post('/register', async (req, res) => {
     }
   } catch(e) {
     console.log(e)
-    res.status(409).send({ msg: e.sqlMessage });
+    // res.status(409).send({ msg: e.sqlMessage });
+    res.status(409).send({ msg: "Internal Server Error." });
   }
 });
 

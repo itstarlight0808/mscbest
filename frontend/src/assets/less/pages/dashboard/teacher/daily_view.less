@@ -1,0 +1,67 @@
+.c-daily-view {
+    margin-top: 24px;
+    
+    .class-list-container {
+        height: 800px;
+        margin-right: 12px;
+        padding: 0;
+        overflow: auto;
+        border: 1px solid #999;
+        border-radius: 5px;
+        
+        .class-item {
+            width: 100%;
+            border-top: 1px solid #999;
+            border-left: 5px solid #999;
+
+            .title {
+                font-size: 16px;
+                font-weight: 700;
+            }
+
+            .description-container {
+                display: flex;
+
+                .short-description {
+                    width: 45%;
+                    margin: 12px 0 0;
+                    font-size: 14px;
+                }
+
+                .schedule-list {
+                    display: flex;
+                    gap: 9px;
+                    width: 35%;
+                    margin-right: 4px;
+                    padding: 8px;
+                    border: 1px dotted @purple-color;
+                    border-radius: 4px;
+                    background: #5f269e33;
+                    font-family: 'Montserrat';
+                    font-weight: 400;
+                    font-size: 12px;
+
+                    .schedule-item {
+                        width: 210px;
+                        display: flex;
+                        justify-content: space-between;
+
+                        svg {
+                            cursor: pointer;
+                            color: #cf2b02;
+                        }
+                    }
+                }
+
+                .reserve-container {
+                    margin-left: auto;
+                    text-align: center;
+
+                    .btn-orange {
+                        padding: 8px 12px;
+                    }
+                }
+            }
+        }
+    }
+}
