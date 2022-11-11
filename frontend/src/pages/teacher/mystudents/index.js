@@ -5,10 +5,10 @@ import moment from "moment";
 import { confirmAlert } from "react-confirm-alert";
 
 import TableView from "../../../components/TableView";
-import { getMyStudents } from "../../../store/slices/teacherSlice";
+import MyStudentForm from "./MyStudentForm";
+import { addMyStudent, getMyStudents } from "../../../store/slices/teacherSlice";
 import { addNewError } from "../../../store/slices/errorSlice";
 import { studentStatus } from "../../../utils/common";
-import httpClient from "../../../utils/http-client";
 import { RootContext } from "../../../App";
 
 const MyStudents = props => {
@@ -57,6 +57,12 @@ const MyStudents = props => {
     useEffect(() => {
         dispatch(getMyStudents);
     }, [])
+
+    const getStudentById = studentId => {
+        let student = myStudents.find(one => one.id === studentId);
+
+        return student;
+    }
 
     const processMyStudentsData = useCallback(() => {
         let result = myStudents.map(one => {
@@ -110,15 +116,7 @@ const MyStudents = props => {
                 {
                     label: "Yes",
                     onClick: () => {
-                        httpClient.post("/teachers/deleteMyStudents", {ids: selected}).then(res => {
-                            dispatch(getMyStudents);
-                        }, err => {
-                            dispatch(addNewError({
-                                status: false,
-                                title: "Error",
-                                msg: "Error Occurs!"
-                            }));
-                        })
+                        dispatch(addMyStudent({ ids: selected }));
                     }
                 },
                 {
@@ -136,7 +134,7 @@ const MyStudents = props => {
             { mode === "view" && 
                 <>
                     <div className="d-flex justify-content-end me-2 mb-2">
-                        {/* <button
+                        <button
                             className="btn-ctrl btn-ctrl-purple"
                             onClick={() => setMode("add")}
                         >
@@ -147,7 +145,7 @@ const MyStudents = props => {
                             onClick={() => editStudentEvent()}
                         >
                             <FontAwesomeIcon icon="fas fa-pen-to-square" />Edit
-                        </button> */}
+                        </button>
                         <button
                             className="btn-ctrl btn-ctrl-red"
                             onClick={() => deleteStudentEvent()}
@@ -157,6 +155,12 @@ const MyStudents = props => {
                     </div>
                     <TableView id="students" editable={true} columns={columns} rowData={processMyStudentsData()} />
                 </>
+            }
+            { mode === "add" &&
+                <MyStudentForm mode={mode} setMode={setMode} />
+            }
+            { mode === "edit" && 
+                <MyStudentForm mode={mode} setMode={setMode} selected={getStudentById(selected[0])} />
             }
         </div>
     )

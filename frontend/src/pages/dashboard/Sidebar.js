@@ -7,6 +7,7 @@ import { Accordion } from "react-bootstrap";
 
 import { userLogOut } from "../../store/slices/userSlice";
 import { CONFIG } from "../../config/index"
+import { disconnectSocket } from "../../sockets/main";
 
 import resourcesImage from "../../assets/images/dashboard/resources.svg";
 import invoicesImage from "../../assets/images/dashboard/students_invoices.svg";
@@ -23,12 +24,12 @@ export const teacherMenuList = [
     { icon: <img className="me-2" src={invoicesImage} alt="menu icon" />, url: "/dashboard/invoices", name: "Students & Invoices" },
     { icon: <img className="me-2" src={expensesImage} alt="menu icon" />, url: "/dashboard/expenses", name: "Expenses" },
     { icon: <img className="me-2" src={reportsImage} alt="menu icon" />, url: "/dashboard/reports", name: "Reports" },
-    { icon: <FontAwesomeIcon icon="fas fa-bell" className="me-2" />, url: "/dashboard/notifications", name: "Notifications" },
+    // { icon: <FontAwesomeIcon icon="fas fa-bell" className="me-2" />, url: "/dashboard/notifications", name: "Notifications" },
 ];
 export const studentMenuList = [
     { icon: <FontAwesomeIcon icon="fas fa-house" className="me-2" />, url: "/dashboard", name: "Home" },
     { icon: <FontAwesomeIcon icon="fas fa-calendar-days" className="me-2" />, url: "/dashboard/calendar", name: "Calendar" },
-    { icon: <img className="me-2" src={contactInfoImage} alt="menu icon" />, url: "/dashboard/contactInfo", name: "Contact Info" },
+    { icon: <img className="me-2" src={contactInfoImage} alt="menu icon" />, url: "/dashboard/contactinfo", name: "Contact Info" },
     { icon: <img className="me-2" src={invoicesImage} alt="menu icon" />, url: "/dashboard/invoices", name: "Account & Invoices" },
     { icon: <img className="me-2" src={resourcesImage} alt="menu icon" />, url: "/dashboard/resources", name: "Online Resources" },
     { icon: <FontAwesomeIcon icon="fas fa-paper-plane" className="me-2" />, url: "/dashboard/message/history", name: "Message History" },
@@ -42,16 +43,17 @@ const Sidebar = props => {
 
     const logOut = () => {
         dispatch(userLogOut());
+        disconnectSocket();
         history.push("/");
     }
     return (
         <div className={`sidebar ${props.open? "open": ""}`}>
             <div className="avatar-container">
-                { userInfo.avatar ? <Avatar alt="avatar" src={`${CONFIG.serverPath}/uploads/avatars/teacher.png`} />
+                { userInfo.avatar ? <Avatar alt="avatar" src={`${CONFIG.serverPath}${userInfo.avatar}`} />
                     : <FontAwesomeIcon icon="fas fa-user-tie" />
                 }
                 <div>
-                    <h2>Holly Hylton</h2>
+                    <h2>{`${userInfo.firstName} ${userInfo.lastName}`}</h2>
                     <h3>{ userInfo.accountType === 0? "Student": (userInfo.accountType === 1? "Teacher": "School") }</h3>
                 </div>
             </div>
@@ -87,12 +89,23 @@ const Sidebar = props => {
                         Settings
                     </Accordion.Header>
                     <Accordion.Body>
-                        <ListItem className={`menu-item ${history.location.pathname === "/dashboard/settings"? "active": ""}`} button>
-                            <Link to="/dashboard/settings">Studio Settings</Link>
-                        </ListItem>
-                        <ListItem className={`menu-item ${history.location.pathname === "/dashboard/preferences"? "active": ""}`} button>
-                            <Link to="/dashboard/preferences">My Preferences</Link>
-                        </ListItem>
+                        { userInfo.accountType === 1 && 
+                            <>
+                                <ListItem className={`menu-item ${history.location.pathname === "/dashboard/setting"? "active": ""}`} button>
+                                    <Link to="/dashboard/setting">Studio Settings</Link>
+                                </ListItem>
+                                <ListItem className={`menu-item ${history.location.pathname === "/dashboard/preference"? "active": ""}`} button>
+                                    <Link to="/dashboard/preference">My Preferences</Link>
+                                </ListItem>
+                            </>
+                        }
+                        { userInfo.accountType === 0 && 
+                            <>
+                                <ListItem className={`menu-item ${history.location.pathname === "/dashboard/profile"? "active": ""}`} button>
+                                    <Link to="/dashboard/profile">My Profile</Link>
+                                </ListItem>
+                            </>
+                        }
                     </Accordion.Body>
                 </Accordion.Item>
             </Accordion>

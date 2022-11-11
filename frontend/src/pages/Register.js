@@ -20,7 +20,7 @@ const useStyles = makeStyles( theme => {
 function Register(props) {
   const classes = useStyles();
 
-  const { loading, userInfo, userLocale } = useSelector(state => state.user);
+  const { loading, userInfo, isRegistered, userLocale } = useSelector(state => state.user);
 
   console.log("=========user locale========")
   console.log(userLocale)
@@ -36,10 +36,7 @@ function Register(props) {
   }, [])
   const redirect = props.location.search ? props.location.search.split("=")[1] : '/';
   useEffect(() => {
-    // console.log("state registered",userInfo.registered)
-    if(userInfo && userInfo.registered)
-      props.history.push("/welcome");
-    else if (userInfo) {
+    if (userInfo) {
       console.log("redirect", redirect)
       props.history.push(redirect);
     }
@@ -69,7 +66,10 @@ function Register(props) {
     }
     
     let params = { accountType, firstName, lastName, email, phoneNumber, password };
-    dispatch(userRegister(params));
+    dispatch(userRegister(params, res => {
+      if(res.data.registered)
+        props.history.push("/welcome");
+    }));
   }
   return (
     <div className="registeration-container" >
@@ -140,7 +140,7 @@ function Register(props) {
               id="mobile-number"
               international
               countryCallingCodeEditable={false}
-              defaultCountry={userLocale?.location.country.code}
+              defaultCountry={userLocale?.country_code}
               value={phoneNumber}
               onChange={setPhoneNumber}
               className={classes.formControl}

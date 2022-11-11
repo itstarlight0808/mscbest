@@ -1,18 +1,15 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { setUserInfo } from "../store/slices/userSlice";
+import { setIsRegistered } from "../store/slices/userSlice";
 
 const Welcome = props => {
     const dispatch = useDispatch();
-    const { userInfo } = useSelector(state => state.user);
+    const { userInfo, isRegistered } = useSelector(state => state.user);
 
     useEffect(() => {
-        if(userInfo && userInfo.registered) {
-            let tmpInfo = {...userInfo};
-            delete tmpInfo.registered;
-            dispatch(setUserInfo(tmpInfo));
-        }
+        if(isRegistered)
+            dispatch(setIsRegistered({ registered: false }));
         else if(userInfo)
             props.history.push("/dashboard");
         else

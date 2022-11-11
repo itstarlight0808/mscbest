@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { TextField, FormControlLabel, Checkbox, OutlinedInput, InputAdornment } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import { connectSocket } from "../sockets/main";
 import { getUserLocale, userSignin } from "../store/slices/userSlice";
 
 function Signin(props) {
@@ -33,7 +34,9 @@ function Signin(props) {
   }
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(userSignin(email, password));
+    dispatch(userSignin({ email, password }, res => {
+      connectSocket({ userId: res.data.id, token: res.data.token });
+    }));
 
   }
   return (
