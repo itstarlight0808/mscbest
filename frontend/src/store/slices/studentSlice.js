@@ -28,3 +28,16 @@ export const searchStudentAPI = searchStr => dispatch => {
         }))
     })
 }
+
+export const getMyTeachersAPI = (cb = null) => dispatch => {
+    httpClient.get("/students/getMyTeachers").then(res => {
+        if(cb)
+            cb(res);
+    }, err => {
+        dispatch(addNewError({
+            status: false,
+            title: "Get my teachers",
+            msg: err.response.statusText
+        }))
+    })
+}
