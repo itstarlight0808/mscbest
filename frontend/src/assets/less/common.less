@@ -64,13 +64,18 @@ legend {
 	display: none;
 }
 /******Form Control*******/
-label.required {
-    &::after {
-        display: inline-block;
-        content: "*";
-        color: #ff0000;
-        font-size: 25px;
-        padding: 0px 5px 0;
+label {
+    color: #696F79;
+    font-family: 'Montserrat';
+    
+    &.required {
+        &::after {
+            display: inline-block;
+            content: "*";
+            color: #ff0000;
+            font-size: 25px;
+            padding: 0px 5px 0;
+        }
     }
 }
 /*****Button*******/
@@ -147,6 +152,14 @@ button {
 
     &:hover {
         transform: rotate(360deg);
+    }
+}
+
+.btn-more {
+    color: rgb(38, 160, 253);
+
+    &:focus, &:active {
+        box-shadow: none;
     }
 }
 
