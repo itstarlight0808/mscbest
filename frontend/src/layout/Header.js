@@ -1,12 +1,21 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Badge } from "@material-ui/core";
 
 import LogoImage from "../assets/images/logo.svg";
 
 const Header = props => {
-    const {userInfo} = useSelector((state) => state.user);
+    const { userInfo } = useSelector((state) => state.user);
+    const { systemNotificationList, personalNotificationList } = useSelector(state => state.notification);
+
+    const unreadNotificationCnt = useMemo(() => {
+        const unreadSysNotification = systemNotificationList.filter(one => one.isRead === 0);
+        const unreadPerNotification = personalNotificationList.filter(one => one.isRead === 0);
+
+        return unreadSysNotification.length + unreadPerNotification.length;
+    }, [ systemNotificationList, personalNotificationList ])
 
     return (
         <header className="header">
@@ -45,8 +54,13 @@ const Header = props => {
                                 <>
                                     <li className="nav-item logged-in-group">
                                         <div className="d-flex">
-                                            <FontAwesomeIcon icon="fas fa-bell" />
-                                            <FontAwesomeIcon icon="far fa-envelope" className="mx-3" />
+                                            {/* <Link to="/notifications" className="nav-link"> */}
+                                            <Link to="/hide-kkk" className="nav-link">
+                                                <Badge badgeContent={unreadNotificationCnt} color="secondary" overlap="rectangular"><FontAwesomeIcon icon="fas fa-bell" /></Badge>
+                                            </Link>
+                                            <Link to="/messages" className="mx-3 nav-link">
+                                                <Badge badgeContent={0} overlap="rectangular"><FontAwesomeIcon icon="far fa-envelope" /></Badge>
+                                            </Link>
                                             <Link to="/dashboard" className="nav-link">Dashboard</Link>
                                         </div>
                                     </li>

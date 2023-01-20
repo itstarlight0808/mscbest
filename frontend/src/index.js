@@ -9,10 +9,12 @@ import { fab } from "@fortawesome/free-brands-svg-icons";
 
 import './index.less';
 import "bootstrap/dist/js/bootstrap.min";
-import 'react-phone-number-input/style.css'
+import 'react-phone-number-input/style.css';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 import App from './App';
 import store from './store/index';
 
+console.log("NODE_ENV", process.env.NODE_ENV)
 library.add(far, fas, fab);
 
 ReactDOM.render(
