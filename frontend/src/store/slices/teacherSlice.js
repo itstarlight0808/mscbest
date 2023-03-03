@@ -5,7 +5,7 @@ import { addNewError } from "./errorSlice";
 const teacherSlice = createSlice({
     name: "teachers",
     initialState: {
-        myStudents: [],
+        myStudents: [], 
         classGroups: []
     },
     reducers: {
