@@ -50,9 +50,9 @@ function App() {
             <Route path="/class/:id/detail" component={ClassDetail} />
             <Route path="/class/:id" component={Class} exact={true}/>
             <Route path="/class" component={Classes} exact={true} />
-            <Route path="/teacher" component={Teachers} exact={true} />
-            <Route path="/contact" component={ContactUs} />
-            <Route path="/ads" component={Ads} />
+            <Route path="/teacher" component={Teachers} exact={true} /> 
+            {/* <Route path="/contact" component={ContactUs} />
+            <Route path="/ads" component={Ads} /> */}
 
             {/* {userInfo?.isAdmin === 1 && adminRoute} */}
             {!userInfo?.isAdmin && userInfo && 
