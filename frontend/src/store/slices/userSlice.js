@@ -113,6 +113,8 @@ export const updateMyProfile = (params, cb = null) => dispatch => {
             title: "Update Profile",
             msg: "Success!"
         }))
+        if(cb)
+            cb(res)
     }, error => {
         dispatch(addNewError({
             status: false,
