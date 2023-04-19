@@ -1,9 +1,9 @@
 import Axios from "axios";
 import Cookie from "js-cookie";
-import { COOKIE_KEY } from "../config/index";
+import { COOKIE_KEY, CONFIG } from "../config/index";
 
 const httpClient = Axios.create({
-    baseURL: "http://localhost:5000/api",
+    baseURL: `${CONFIG.serverPath}/api`,
     // baseURL: "https://musicalbest.com/api",
 });
 
@@ -25,7 +25,9 @@ httpClient.interceptors.response.use(
 	},
 	error => {
 		if (error.response.status === 401) {
-			Cookie.remove(COOKIE_KEY.USER_INFO);			
+			Cookie.remove(COOKIE_KEY.USER_INFO);
+			Cookie.remove(COOKIE_KEY.USER_LOCALE);
+			location.href="/signin";
 		}
 		return Promise.reject(error);
 	}
