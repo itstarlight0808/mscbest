@@ -1,0 +1,70 @@
+.p-invoice-setting-container {
+    .text-input {
+        background: @white-color;
+        width: 300px;
+    }
+
+    .MuiFormGroup-root {
+        flex-direction: row;
+    }
+
+    .logo-container {
+        margin-top: 18px;
+        width: 300px;
+
+        .img-container {
+            margin-top: 12px;
+
+            .MuiAvatar-root {
+                width: 120px;
+                height: 120px;
+                margin: auto;
+                border: 2px dotted @purple-color;
+            }
+        }
+
+        .ctrl-container {
+            display: flex;
+            justify-content: center;
+        }
+    }
+
+    .invoice-accent-color {
+        margin-top: 18px;
+
+        input {
+            border: 1px solid grey;
+            border-radius: 3px;
+            background: white;
+            text-indent: 8px;
+        }
+    }
+
+    .negative-invoice-container {
+        margin-top: 18px;
+    }
+
+    .number-format-container {
+        margin-top: 18px;
+
+        .flex-div {
+            display: flex;
+
+            .sel-format-number {
+                [class*="ValueContainer"] {
+                    width: 0;
+                    padding: 0;
+                }
+
+                [class$="menu"] {
+                    width: 250px;
+                }
+            }
+        }
+    }
+
+    .late-payment-fee-container {
+        margin-top: 18px;
+    }
+
+}
