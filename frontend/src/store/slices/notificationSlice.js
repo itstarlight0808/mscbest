@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import httpClient from "../../utils/http-client";
+import { addNewError } from "./errorSlice";
 
 const notificationSlice = createSlice({
     name: "notification",
@@ -46,6 +47,12 @@ export const getNotificationListAPI = async dispatch => {
     httpClient.get("/notifications/").then(res => {
         dispatch(setSystemNotificationList(res.data.systemNotifications));
         dispatch(setPersonalNotificationList(res.data.personalNotifications));
+    }, err => {
+        dispatch(addNewError({
+            status: false,
+            title: "Fetching Notification List",
+            msg: err.response.data.msg
+        }))
     })
 }
 
@@ -54,6 +61,12 @@ export const deleteNotificationAPI = (params = {}) => dispatch => {
 
     httpClient.delete(`/notifications/${notificationId}`).then(res => {
         isSystem? dispatch(deleteSystemNotification({ notificationId })): dispatch(deletePersonalNotification({ notificationId }));
+    }, err => {
+        dispatch(addNewError({
+            status: false,
+            title: "Deleting Notification",
+            msg: err.response.data.msg
+        }))
     })
 }
 
@@ -62,5 +75,11 @@ export const markAsReadAPI = (params = {}) => dispatch => {
 
     httpClient.post(`/notifications/${notificationId}/markAsRead`).then(res => {
         dispatch(markAsRead({ notificationId, isSystem }));
+    }, err => {
+        dispatch(addNewError({
+            status: false,
+            title: "Mark As Read about Notification",
+            msg: err.response.data.msg
+        }))
     })
 }
