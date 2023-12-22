@@ -86,6 +86,8 @@
     
                     svg {
                         margin-right: 10px;
+                        width: 36px;
+                        height: 36px;
                     }
                 }
                 .btn-share {
@@ -145,6 +147,8 @@
                 
                                 svg {
                                     margin-right: 10px;
+                                    width: 36px;
+                                    height: 36px;
                                 }
                             }
                         }
@@ -167,54 +171,6 @@
                         color: #170F49;
                         border: 5px solid #B17BFF;
                         border-radius: 18px;
-                    }
-                    .accordion {
-                        margin-top: 11px;
-                        padding: 35px 16px 50px 16px;
-                        background: #fff;
-                        border: 5px solid #B17BFF;
-                        border-radius: 20px;
-
-                        .accordion-item {
-                            border: 2px solid #5F269E;
-                            box-shadow: 0px 6px 16px rgba(74, 58, 255, 0.19);
-                            border-radius: 14px;
-
-                            & + .accordion-item {
-                                margin-top: 11px;
-                            }
-                            .accordion-header {
-                                button {
-                                    font-weight: 500;
-                                    font-size: 22px;
-                                    color: #170F49;
-                                    background: transparent;
-                                    box-shadow: none;
-
-                                    &:focus, &:active {
-                                        outline: none;
-                                    }
-                                    &::after {
-                                        transform: rotate(-90deg);
-                                        width: 1.75rem;
-                                        height: 1.75rem;
-                                    }
-                                    &:not(.collapsed)::after {
-                                        background-image: url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27 fill=%27%23212529%27%3e%3cpath fill-rule=%27evenodd%27 d=%27M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z%27/%3e%3c/svg%3e');
-                                        filter: invert(1);
-                                        background-position: 4px;
-                                        background-color: #a1d53b;
-                                        border-radius: 50%;
-                                        transform: none;
-                                    }
-                                }
-                            }
-                            .accordion-body {
-                                font-weight: 400;
-                                font-size: 18px;
-                                color: #6F6C90;
-                            }
-                        }
                     }
                 }
             }

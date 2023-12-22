@@ -1,0 +1,69 @@
+.p-teacher-bio {
+    .text-input {
+        width: 90%;
+        background: @white-color;
+    }
+
+    .teacher-info-container {
+        display: flex;
+
+        .headshot-container {
+            width: 30%;
+
+            .img-container {
+                width: 90%;
+
+                img {
+                    width: 100%;
+                    cursor: pointer;
+                }
+            }
+
+            .hint {
+                width: 90%;
+                font-size: 12px;
+                text-align: center;
+                margin-bottom: 8px;
+            }
+
+            .ctrl-container {
+                width: 90%;
+                display: flex;
+                justify-content: center;
+                gap: 24px;
+            }
+        }
+
+        .bio-container {
+            width: 70%;
+        }
+    }
+
+    .class-list-container {
+        margin-top: 24px;
+        display: flex;
+        
+        .title {
+            width: 30%;
+
+            span {
+                font-size: 12px;
+            }
+        }
+        .class-list {
+            width: 65%;
+            padding-left: 25px;
+    
+            @media (max-width: @screen-sm) {
+                padding: 20px 0 0;
+                width: 100%;
+            }
+        }
+    }
+
+    .social-link-container {
+        .social-link-list {
+            display: flex;
+        }
+    }
+}

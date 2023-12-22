@@ -1,5 +1,4 @@
 .teacher-component {
-    position: relative;
     
     .img-container {
         width: 100%;
@@ -19,8 +18,8 @@
     .custom-tooltip {
         position: absolute;
         bottom: 5px;
-        left: 1.5vw;
-        width: 95%;
+        left: 3vw;
+        width: 92%;
         z-index: 1;
         height: 70px;
         overflow-y: auto;
@@ -31,7 +30,7 @@
         }
 
         @media (max-width: @screen-lg) {
-            height: 40px;
+            height: 50px;
         }
         @media (max-width: @screen-md) {
             position: relative;
@@ -52,12 +51,13 @@
             }
 
             > h2 {
-                font-style: italic;
+                padding: 4px 10px;
                 font-weight: 700;
-                font-size: 64px;
+                font-size: 42px;
                 text-transform: capitalize;
                 color: @white-color;
-                width: 40%;
+                background: #3e3e3e;
+                border-radius: 5px;
 
                 @media (max-width: @screen-lg) {
                     font-size: 32px;
@@ -85,15 +85,15 @@
                         margin-left: 10px;
                         border: none;
                         box-shadow: none;
-                        padding: 0 15px;
+                        padding: 3px 15px;
     
                         &:first-child {
-                            width: 150px;
+                            width: 90px;
                         }
     
                         &.active {
                             .skew-div {
-                                background: linear-gradient(0deg, rgba(95, 38, 158, 0.5), rgba(95, 38, 158, 0.5)), rgba(129, 129, 129, 0.65);
+                                background: #818181a6;
                             }
                         }
                         .skew-div {
@@ -104,13 +104,13 @@
                             width: 100%;
                             height: 100%;
                             transform: skewX(-40deg);
-                            background: #818181a6;
+                            background: @purple-color;
                         }
                         
                         h3 {
                             font-style: italic;
                             font-weight: 400;
-                            font-size: 36px;
+                            font-size: 24px;
                             color: @white-color;
                             text-transform: capitalize;
     
@@ -127,13 +127,16 @@
                     }
 
                     .social-icon {
-                        width: 22px;
-                        height: 22px;
-                        background: #A64BF7;
-                        color: @white-color;
-                        padding: 7px;
-                        border-radius: 50%;
-                        cursor: pointer;
+                        svg {
+                            width: 22px;
+                            height: 22px;
+                            background: #A64BF7;
+                            color: @white-color;
+                            padding: 7px;
+                            border-radius: 50%;
+                            cursor: pointer;
+                            vertical-align: bottom;
+                        }
     
                         & + .social-icon {
                             margin-left: 10px;
@@ -215,7 +218,6 @@
 
                                 > .btn-purple {
                                     padding: 10px 34px;
-                                    background: #5f269e80;
                                 }
                             }
                         }

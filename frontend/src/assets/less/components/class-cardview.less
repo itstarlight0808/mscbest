@@ -1,6 +1,5 @@
 .class-card-view {
-    width: 35%;
-    margin-right: 12px;
+    width: 335px;
     border: 1px dotted @purple-color;
     border-radius: 4px;
     background: #5f269e33;
@@ -8,6 +7,8 @@
     .banner {
         position: relative;
         cursor: pointer;
+        height: 200px;
+        overflow-y: hidden;
 
         img {
             width: 100%;
@@ -41,7 +42,9 @@
     }
 
     .body {
+        height: 200px;
         padding: 5px 10px;
+        overflow-y: auto;
 
         .avatar-container {
             display: flex;

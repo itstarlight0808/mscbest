@@ -2,7 +2,11 @@
     .class-list-container {
         display: flex;
         flex-wrap: wrap;
-        gap: 35px 0px;
-        margin: 60px 0;
+        gap: 35px 12px;
+        margin: 60px 24px;
+
+        @media screen and (max-width: @screen-md) {
+            justify-content: center;
+        }
     }
 }
