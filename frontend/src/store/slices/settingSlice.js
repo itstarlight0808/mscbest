@@ -48,3 +48,65 @@ export const updateStudioSettingAPI = (params = {}) => dispatch => {
         }))
     })
 }
+
+export const getTeacherBioSettingAPI = (cb = null) => dispatch => {
+    httpClient.get("/settings/getTeacherBioSetting").then(res => {
+        if(cb)
+            cb(res);
+    }, err => {
+        dispatch(addNewError({
+            status: false,
+            title: "Get Teacher Bio Setting",
+            msg: err.response.data.msg
+        }))
+    })
+}
+
+export const updateTeacherBioSettingAPI = (params = {}, cb = null) => dispatch => {
+    httpClient.put("/settings/updateTeacherBioSetting", params).then(res => {
+        dispatch(addNewError({
+            status: true,
+            title: "Update Teacher Bio Setting",
+            msg: "Success!"
+        }))
+        if(cb)
+            cb(res);
+    }, err => {
+        dispatch(addNewError({
+            status: false,
+            title: "Update Teacher Bio Setting",
+            msg: err.response.data.msg
+        }))
+    })
+}
+
+export const getInvoiceSettingAPI = (cb = null) => dispatch => {
+    httpClient.get("/settings/getInvoiceSetting").then(res => {
+        if(cb)
+            cb(res);
+    }, err => {
+        dispatch(addNewError({
+            status: false,
+            title: "Get Invoice Setting",
+            msg: err.response.data.msg
+        }))
+    })
+}
+
+export const updateInvoiceSettingAPI = (params = {}, cb = null) => dispatch => {
+    httpClient.put("/settings/updateInvoiceSetting", params).then(res => {
+        dispatch(addNewError({
+            status: true,
+            title: "Update Invoice Setting",
+            msg: "Success!"
+        }))
+        if(cb)
+            cb(res);
+    }, err => {
+        dispatch(addNewError({
+            status: false,
+            title: "Update Invoice Setting",
+            msg: err.response.data.msg
+        }))
+    })
+}
