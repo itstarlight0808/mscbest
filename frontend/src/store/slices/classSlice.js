@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import httpClient from "../../utils/http-client";
+import moment from "moment";
 
 import { addNewError } from "./errorSlice";
 
@@ -47,6 +48,12 @@ export const getClassListAPI = async dispatch => {
     httpClient.get("/classes/").then(res => {
         let data = res.data;
         dispatch(setClassList(data));
+    }, err => {
+        dispatch(addNewError({
+            status: false,
+            title: "Fetching Class List",
+            msg: err.response.data.msg
+        }))
     })
 }
 
@@ -57,8 +64,8 @@ export const getClassByIdAPI = (params = {}, cb = null) => dispatch => {
     }, err=> {
         dispatch(addNewError({
             status: false,
-            title: "Error",
-            msg: "Error occurs during fetching class!"
+            title: "Fetching Class",
+            msg: err.response.data.msg
         }))
     })
 }
@@ -68,11 +75,11 @@ export const addClassScheduleAPI = (params = {}, cb = null) => dispatch => {
 
     httpClient.post("/classes/schedule/add", { classId, startDate: moment(startDate).format("YYYY-MM-DD HH:mm:ss A") }).then(res => {
         dispatch(addClassSchedule({ classId, schedule: {...res.data, startDate: startDate.utc().format()} }))
-    }, error => {
+    }, err => {
         dispatch(addNewError({
             status: false,
             title: "Adding Schedule",
-            msg: "Adding Schedule Error!"
+            msg: err.response.data.msg
         }));
     })
 }
@@ -83,11 +90,11 @@ export const deleteClassScheduleAPI = (params = {}, cb = null) => dispatch => {
         if(res.status === 200) {
             dispatch(deleteClassSchedule({ selected, scheduleId }));
         }
-    }, error => {
+    }, err => {
         dispatch(addNewError({
             status: false,
             title: "Deleting Schedule",
-            msg: "Deleting Schedule Error!"
+            msg: err.response.data.msg
         }))
     })
 }
@@ -96,6 +103,12 @@ export const doBookingAPI = (params = {}, cb = null) => dispatch => {
     const { classId, groupId } = params;
     httpClient.post(`/classes/${classId}/book`, { groupId }).then(res => {
         dispatch(bookClass({ classId, participant: res.data }));
+    }, err => {
+        dispatch(addNewError({
+            status: false,
+            title: "Booking Class",
+            msg: err.response.data.msg
+        }))
     })
 }
 
@@ -103,5 +116,11 @@ export const cancelBookingAPI = (params = {}, cb = null) => dispatch => {
     const { classId } = params;
     httpClient.delete(`/classes/${classId}/cancelBooking`).then(res => {
         dispatch(cancelBook({ classId, participantId: res.data.userId }));
+    }, err => {
+        dispatch(addNewError({
+            status: false,
+            title: "Cancel Booking",
+            msg: err.response.data.msg
+        }))
     })
 }
