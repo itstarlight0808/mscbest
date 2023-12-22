@@ -24,7 +24,7 @@ export const searchStudentAPI = searchStr => dispatch => {
         dispatch(addNewError({
             status: false,
             title: "Search student by Email",
-            msg: err.response.statusText
+            msg: err.response.data.msg
         }))
     })
 }
@@ -37,7 +37,33 @@ export const getMyTeachersAPI = (cb = null) => dispatch => {
         dispatch(addNewError({
             status: false,
             title: "Get my teachers",
-            msg: err.response.statusText
+            msg: err.response.data.msg
+        }))
+    })
+}
+
+export const getInvitationToDBInfoAPI = (id, cb = null) => dispatch => {
+    httpClient.get(`/students/getInvitationToDBInfo/${id}`).then(res => {
+        if(cb)
+            cb(res)
+    }, err => {
+        dispatch(addNewError({
+            status: false,
+            title: "Get Invitation Detail",
+            msg: err.response.data.msg
+        }))
+    })
+}
+
+export const acceptInvitationToDBAPI = (id, cb = null) => dispatch => {
+    httpClient.post("/students/acceptInvitationToDB", { id }).then(res => {
+        if(cb)
+            cb(res)
+    }, err => {
+        dispatch(addNewError({
+            status: false,
+            title: "Accept Invitation To DB",
+            msg: err.response.data.msg
         }))
     })
 }
