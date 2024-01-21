@@ -7,12 +7,18 @@ import errorReducer from "./slices/errorSlice";
 import classReducer from "./slices/classSlice";
 import teacherReducer from "./slices/teacherSlice";
 import studentReducer from "./slices/studentSlice";
+import notificationReducer from "./slices/notificationSlice";
+import settingReducer from "./slices/settingSlice";
+import invoiceReducer from "./slices/invoiceSlice";
+import transactionReducer from "./slices/transactionSlice";
 
 
 const userInfo = Cookie.getJSON(COOKIE_KEY.USER_INFO) || null;
+const userLocale = Cookie.getJSON(COOKIE_KEY.USER_LOCALE) || null;
 console.log("Cookie Info", userInfo);
+console.log("Cookie USER_LOCALE", userLocale);
 const initialState = {
-  user: { userInfo, loading: false },
+  user: { userInfo, userLocale, loading: false },
 };
 const store = configureStore(
   {
@@ -21,7 +27,11 @@ const store = configureStore(
       teacher: teacherReducer,
       student: studentReducer,
       error: errorReducer,
-      classes: classReducer
+      classes: classReducer,
+      invoice: invoiceReducer,
+      transaction: transactionReducer,
+      notification: notificationReducer,
+      setting: settingReducer
     },
     preloadedState: initialState
   }
