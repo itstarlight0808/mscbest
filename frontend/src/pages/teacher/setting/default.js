@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PhoneInput from "react-phone-number-input";
-import { TextField } from "@material-ui/core";
+import { Checkbox, FormControlLabel, TextField } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
 import countries from "../../../utils/countries.json";
 import timezoneList from "../../../utils/timezone.json";
@@ -29,6 +29,10 @@ const DefaultSetting = props => {
     const [studioEmail, setStudioEmail] = useState("");
     const [studioCountry, setStudioCountry] = useState(null);
     const [studioTimezone, setStudioTimezone] = useState(null);
+    const [showTeacherEmail, setShowTeacherEmail] = useState(false);
+    const [showTeacherPhoneNumber, setShowTeacherPhoneNumber] = useState(false);
+    const [showTeacherStudioAddress, setShowTeacherStudioAddress] = useState(false);
+    const [showMakeUpCredits, setShowMakeUpCredits] = useState(false);
     
     useEffect(() => {
         setStudioName(studioSettings.name ?? "");
@@ -37,6 +41,10 @@ const DefaultSetting = props => {
         setStudioEmail(studioSettings.email ?? "");
         setStudioCountry(studioSettings.country? getCountryFromJSON(studioSettings.country): null);
         setStudioTimezone(studioSettings.timezone? getTimezoneFromJSON(studioSettings.timezone): null);
+        setShowTeacherEmail(studioSettings.showTeacherEmail === 1? true: false)
+        setShowTeacherPhoneNumber(studioSettings.showTeacherPhoneNumber === 1? true: false)
+        setShowTeacherStudioAddress(studioSettings.showTeacherStudioAddress === 1? true: false)
+        setShowMakeUpCredits(studioSettings.showMakeUpCredits === 1? true: false)
     }, [ studioSettings ])
 
     const saveOptions = e => {
@@ -48,7 +56,11 @@ const DefaultSetting = props => {
             phone: studioPhone,
             email: studioEmail,
             country: studioCountry?.name ?? "",
-            timezone: studioTimezone?.text ?? ""
+            timezone: studioTimezone?.text ?? "",
+            showTeacherEmail: showTeacherEmail? 1: 0,
+            showTeacherPhoneNumber: showTeacherPhoneNumber? 1: 0,
+            showTeacherStudioAddress: showTeacherStudioAddress? 1: 0,
+            showMakeUpCredits: showMakeUpCredits? 1: 0,
         };
 
         dispatch(updateStudioSettingAPI(params));
@@ -144,6 +156,52 @@ const DefaultSetting = props => {
                         value={studioTimezone}
                         onChange={(e, newVal) => setStudioTimezone(newVal)}
                     />
+                </div>
+                <div className="form-group">
+                    <h4>Student Setup</h4>
+                    <label className="d-block mt-2">Teacher Contact</label>
+                    <FormControlLabel 
+                        control={
+                            <Checkbox
+                                color="primary"
+                                checked={showTeacherEmail}
+                                onChange={e => setShowTeacherEmail(e.target.checked)}
+                            />
+                        }
+                        label="Show Teacher Email"
+                    />
+                    <FormControlLabel 
+                        control={
+                            <Checkbox
+                                color="primary"
+                                checked={showTeacherPhoneNumber}
+                                onChange={e => setShowTeacherPhoneNumber(e.target.checked)}
+                            />
+                        }
+                        label="Show Teacher Phone Number"
+                    />
+                    <FormControlLabel 
+                        control={
+                            <Checkbox
+                                color="primary"
+                                checked={showTeacherStudioAddress}
+                                onChange={e => setShowTeacherStudioAddress(e.target.checked)}
+                            />
+                        }
+                        label="Show Teacher Studio Address"
+                    />
+                    <label className="d-block mt-2">Show Make-Up Credits</label>
+                    <FormControlLabel 
+                        control={
+                            <Checkbox
+                                color="primary"
+                                checked={showMakeUpCredits}
+                                onChange={e => setShowMakeUpCredits(e.target.checked)}
+                            />
+                        }
+                        label="Show Available Make-Up Credits"
+                    />
+                   
                 </div>
             </div>
             <div className="ctrl-container">
